@@ -1,4 +1,5 @@
 import './Cart.css'
+import { Link } from "react-router-dom"
 
 import { useId } from 'react'
 import { CartIcon, ClearCartIcon } from './Icons.jsx'

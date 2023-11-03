@@ -41,7 +41,7 @@ export function Filters (){
 
             <div>
                 <label htmlFor={categoryFilterId}>Categoría</label>
-                <select id={categoryFilterId} onChange={handleChangeCategory}>
+                <select className="plegable" id={categoryFilterId} onChange={handleChangeCategory}>
                     <option value="all">Todas</option>
                     <option value="laptops">Notebooks</option>
                     <option value="smartphones">Celulares</option>
