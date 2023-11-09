@@ -20,16 +20,16 @@ export function AddBook() {
   });
 
   const [errorMessages, setErrorMessages] = useState([]);
-  
+  const [successMessage, setSuccessMessage] = useState('');
+
   const closeNotification = () => {
     setErrorMessages([]);
+    setSuccessMessage('');
   };
 
   const addBook = async () => {
-    // Validar los datos antes de enviar la solicitud POST
     if (validateFormData()) {
       try {
-        // Realizar la solicitud POST con los datos del estado del libro
         await axios.post('http://localhost:1234/books', bookData);
         console.log('Libro agregado con éxito');
       } catch (error) {
@@ -38,34 +38,36 @@ export function AddBook() {
     }
   };
 
+
+  
+  
+  
+  const validateFormData = () => {
+    try {
+      bookSchema.parse(bookData);
+      setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
+      return true;
+    } catch (error) {
+      setErrorMessages([...error.errors.map((err) => err.message)]);
+      return false;
+    }
+  };
+  
+  
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    // Si el nombre del campo es "genre", convierte la cadena en un array
-    // separando los elementos por comas
     if (name === 'genre') {
       setBookData((prevData) => ({
         ...prevData,
         [name]: value.split(',').map((genre) => genre.trim()),
       }));
     } else {
-      // Para otros campos, realiza la conversión a número si es posible
+      const numericValue = value !== "" && !isNaN(value) ? parseInt(value, 10) : undefined;
       setBookData((prevData) => ({
         ...prevData,
-        [name]: name === 'year' || name === 'price' || name === 'rate' ? parseInt(value, 10) : value,
+        [name]: name === 'year' || name === 'price' || name === 'rate' ? numericValue : value,
       }));
-    }
-  };
-  
-  
-  const validateFormData = () => {
-    try {
-      bookSchema.parse(bookData);
-      setErrorMessages([]); // Limpiar los mensajes de error cuando la validación es exitosa
-      return true;
-    } catch (error) {
-      setErrorMessages(error.errors.map(err => err.message)); // Obtener la lista de mensajes de error
-      return false;
     }
   };
 
@@ -73,9 +75,17 @@ export function AddBook() {
     <div className="formContainer">
       <h1>Agregar Libro</h1>
       <form className="addBookForm">
-        {errorMessages.length > 0 && (
-        <Notification messages={errorMessages} onClose={closeNotification} />
-        )}
+      
+      {successMessage && successMessage.type === "success" && (
+        <Notification message={successMessage.message} 
+        type="success" 
+        onClose={closeNotification} />
+      )}
+      
+      {errorMessages.length > 0 &&
+       <Notification messages={errorMessages} 
+       type="error" 
+       onClose={closeNotification} />}
 
         <label htmlFor="">Titulo</label>
         <input type="text" name="title" value={bookData.title} onChange={handleChange} />

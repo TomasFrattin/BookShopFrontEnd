@@ -10,7 +10,7 @@
 
 @media (max-width: 670px) {
     .filters {
-        gap: 6rem; /* Cambia el valor de gap para pantallas más pequeñas */
+        gap: 6rem;
     }
 }
 
@@ -19,7 +19,7 @@
 }
 
 .filters > div {
-    width: 200px; /* Establece un ancho fijo para cada filtro */
+    width: 200px;
     display: flex;
     gap: 1rem;
 }

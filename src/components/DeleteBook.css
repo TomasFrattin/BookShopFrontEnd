@@ -2,8 +2,8 @@
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: center; /* Centra los elementos hijos horizontalmente */
-  align-items: center; /* Centra los elementos hijos verticalmente */
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 

@@ -24,6 +24,21 @@ export function CartProvider ({ children }) {
         ]))
     }
    
+    const takeAwayFromCart = product => {
+        const productInCartIndex = cart.findIndex(item => item.id === product.id);
+      
+        if (productInCartIndex >= 0) {
+          const newCart = structuredClone(cart);
+          if (newCart[productInCartIndex].quantity > 1) {
+            newCart[productInCartIndex].quantity -= 1;
+          } else {
+            newCart.splice(productInCartIndex, 1);
+          }
+          setCart(newCart);
+        }
+      };
+      
+
     const removeFromCart = product => {
         setCart(prevState => prevState.filter(item => item.id !== product.id))
     }
@@ -37,7 +52,8 @@ export function CartProvider ({ children }) {
             cart,
             removeFromCart,
             addToCart,
-            clearCart
+            clearCart,
+            takeAwayFromCart
         }}>
             {children}
         </CartContext.Provider>

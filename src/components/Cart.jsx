@@ -1,57 +1,60 @@
-import './Cart.css'
-import { useId } from 'react'
-import { CartIcon, ClearCartIcon } from './Icons.jsx'
-import { useCart } from '../hooks/useCart.js'
+/* eslint-disable react/prop-types */
+import './Cart.css';
+import { useState } from 'react';
+import { useId } from 'react';
+import { CartIcon, ClearCartIcon } from './Icons.jsx';
+import { useCart } from '../hooks/useCart.js';
 
-// eslint-disable-next-line react/prop-types
-export function CartItem ({image, price, title, quantity, addToCart}) {
-    return(
-        <li>
-            <img 
-                src={image} 
-                alt={title} 
-                />
-            <div>
-                <strong>{title}</strong> - ${price}
-            </div>
+export function CartItem({ product, onIncrease, onDecrease }) {
+  const { image, price, title, quantity } = product;
 
-            <footer>
-                <small>
-                    Qty: {quantity}
-                </small>
-                <button onClick={addToCart}>+</button>
-            </footer>
-        </li>
-    )
+  return (
+    <li>
+      <img src={image} alt={title} />
+      <div className='bookData'>
+        {title} - ${price}
+      </div>
+
+      <footer>
+        <button onClick={onDecrease}>-</button>
+        <small>Qty: {quantity}</small>
+        <button onClick={onIncrease}>+</button>
+      </footer>
+    </li>
+  );
 }
 
-export function Cart () {
-    const cartCheckboxId = useId()
-    const {cart, clearCart, addToCart} = useCart()
+export function Cart() {
+  const cartCheckboxId = useId();
+  const [isCartVisible, setIsCartVisible] = useState(false);
+  const { cart, clearCart, addToCart, takeAwayFromCart } = useCart();
 
-    return(
-        <>
-            <label className='cart-button' htmlFor={cartCheckboxId}>
-                <CartIcon />
-            </label>
-            <input id={cartCheckboxId} type="checkbox" hidden />
+  const handleToggleCart = () => {
+    setIsCartVisible(!isCartVisible);
+  };
 
-            <aside className='cart'>
-                <ul>
-                    {cart.map(product => (
-                        <CartItem 
-                        key={product.id} 
-                        addToCart={() => addToCart(product)}
-                        {...product} />
-                    ))}  
-                </ul>
-                <button
-                className='remove-button'
-                onClick={clearCart}>
-                    <ClearCartIcon />
-                </button>
-            </aside>
+  return (
+    <>
+      <label className='cart-button' htmlFor={cartCheckboxId} onClick={handleToggleCart}>
+        <CartIcon />
+      </label>
+      <input id={cartCheckboxId} type="checkbox" hidden />
 
-        </>
-    )
+      <aside className={`cart ${isCartVisible ? 'visible' : ''}`}>
+        <ul>
+          {cart.map(product => (
+            <CartItem
+              key={product.id}
+              product={product}
+              onIncrease={() => addToCart(product)}
+              onDecrease={() => takeAwayFromCart(product)}
+            />
+          ))}
+        </ul>
+        <button className='remove-button' onClick={clearCart}>
+          <ClearCartIcon />
+        </button>
+      </aside>
+    </>
+  );
 }

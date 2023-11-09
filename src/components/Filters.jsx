@@ -31,7 +31,7 @@ export function Filters() {
                 <select className="plegable" id={categoryFilterId} onChange={handleChangeCategory} value={filters.category}>
                     <option value="all">Todas</option>
                     <option value="Mystery">Mystery</option>
-                    <option value="smartphones">Celulares</option>
+                    <option value="Horro">Horror</option>
                 </select>
             </div>
 

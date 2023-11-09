@@ -26,7 +26,6 @@ export function Summary() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes enviar los datos del formulario y el resumen del carrito por WhatsApp
     const message = `Hola, mi nombre es ${formData.firstName} ${formData.lastName}. Mi dirección es ${formData.address} ${formData.streetNumber}, ${formData.city}, ${formData.province}. Quisiera encargar: ${cart.map(product => `
     ${product.title} (${product.quantity})`).join(', ')}`;
     const whatsappLink = `https://wa.me/${formData.phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -34,7 +33,6 @@ export function Summary() {
   };
 
 
-  // Calcular el total a pagar y mostrar el precio total por producto
   const totalAmount = cart.reduce((total, product) => {
     const productTotal = product.quantity * product.price;
     return total + productTotal;

@@ -11,7 +11,6 @@ import { FiltersProvider } from './context/filters.jsx'
 import { AddBook } from "./components/AddBook.jsx"
 import { DeleteBook } from "./components/DeleteBook.jsx"
 
-
 export function App() {
 
     return (
