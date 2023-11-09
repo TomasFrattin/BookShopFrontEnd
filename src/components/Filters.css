@@ -3,9 +3,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10rem;
+    gap: 16rem;
     font-size: 20px;
     font-weight: 500;
+}
+
+@media (max-width: 670px) {
+    .filters {
+        gap: 6rem; /* Cambia el valor de gap para pantallas más pequeñas */
+    }
 }
 
 .plegable {

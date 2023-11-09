@@ -1,15 +1,14 @@
 import './Cart.css'
-import { Link } from "react-router-dom"
-
 import { useId } from 'react'
 import { CartIcon, ClearCartIcon } from './Icons.jsx'
 import { useCart } from '../hooks/useCart.js'
 
-function CartItem ({thumbnail, price, title, quantity, addToCart}) {
+// eslint-disable-next-line react/prop-types
+export function CartItem ({image, price, title, quantity, addToCart}) {
     return(
         <li>
             <img 
-                src={thumbnail} 
+                src={image} 
                 alt={title} 
                 />
             <div>

@@ -1,0 +1,47 @@
+.deleteList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Centra los elementos hijos horizontalmente */
+  align-items: center; /* Centra los elementos hijos verticalmente */
+  flex-direction: column;
+}
+
+.deleteList ul {
+  list-style: none;
+  padding: 0;
+  width: 1000px;
+  overflow-y: auto;
+}
+
+.deleteList ul div li {
+  display: flex;
+  align-items: center;
+  margin: 3px;
+}
+
+.deleteList ul div {
+  background-color: #333333;
+  padding: 2px;
+  margin: 3px;
+}
+
+.deleteList ul div li img {
+  height: 150px;
+}
+
+span {
+  flex: 1;
+  font-size: 20px;
+}
+
+.deleteButton{
+  transition: all .3s ease;
+  border: black;
+  margin-right: 15px;
+}
+
+.deleteButton:hover{
+  scale: 1.1;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+}

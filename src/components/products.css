@@ -7,7 +7,7 @@
 
 .products ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Aumenta el valor mínimo a 250px */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cambiado auto-fit a auto-fill */
   gap: 1rem;
   width: 100%;
 }
@@ -26,7 +26,6 @@
 
 .products h3 {
   margin: 0;
- 
 }
 
 .products span {
@@ -37,7 +36,7 @@
 .products img {
   border-radius: 4px;
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 1/1;
   display: block;
   object-fit: cover;
   background: #fff;
