@@ -10,7 +10,7 @@
 .deleteList ul {
   list-style: none;
   padding: 0;
-  width: 1000px;
+  width: 90%;
   overflow-y: auto;
 }
 
@@ -28,6 +28,8 @@
 
 .deleteList ul div li img {
   height: 150px;
+  width: 100px;
+  box-shadow:  3px 3px 10px black;
 }
 
 span {

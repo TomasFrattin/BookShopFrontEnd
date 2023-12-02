@@ -1,0 +1,31 @@
+.alterList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.alterList ul {
+  list-style: none;
+  padding: 0;
+  width: 90%;
+  overflow-y: auto;
+}
+
+.alterList ul div li {
+  display: flex;
+  align-items: center;
+  margin: 3px;
+}
+
+.alterList ul div {
+  background-color: #333333;
+  padding: 2px;
+  margin: 3px;
+}
+
+.alterList ul div li img {
+  height: 150px;
+}

@@ -10,6 +10,7 @@ import { Summary } from "./components/Summary.jsx";
 import { FiltersProvider } from './context/filters.jsx'
 import { AddBook } from "./components/AddBook.jsx"
 import { DeleteBook } from "./components/DeleteBook.jsx"
+import { AlterBook } from "./components/AlterBook.jsx"
 
 export function App() {
 
@@ -19,6 +20,7 @@ export function App() {
             <CartProvider>
                 <FiltersProvider>
                     <Routes>
+                        <Route path="/alterBook" element={<AlterBook />} />
                         <Route path="/deleteBook" element={<DeleteBook />} />
                         <Route path="/addBook" element={<AddBook />} />
                         <Route path="/" element={<Home />} />

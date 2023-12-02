@@ -31,21 +31,21 @@ export function AddBook() {
     if (validateFormData()) {
       try {
         await axios.post('http://localhost:1234/books', bookData);
-        console.log('Libro agregado con éxito');
+        setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
+        console.log("El libro fue agregado exitosamente.")
       } catch (error) {
+        // En caso de error, actualiza el estado errorMessages
+        setErrorMessages(['Error al agregar el libro. Por favor, inténtelo nuevamente.']);
         console.error('Error al agregar el libro:', error);
       }
     }
   };
 
 
-  
-  
-  
   const validateFormData = () => {
     try {
       bookSchema.parse(bookData);
-      setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
+      //setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
       return true;
     } catch (error) {
       setErrorMessages([...error.errors.map((err) => err.message)]);

@@ -9,7 +9,8 @@ export function Header() {
       <nav>
         <ul>
           <li><Link to="/addBook">Añadir Libro</Link></li>
-          <li><Link to="/deleteBook">Eliminar Libro</Link></li>         
+          <li><Link to="/deleteBook">Eliminar Libro</Link></li>
+          <li><Link to="/alterBook">Modificar Libro</Link></li>         
           <li><Link to="/books">Libros</Link></li>
           <li><Link to="/summary">Resumen</Link></li>
         </ul>

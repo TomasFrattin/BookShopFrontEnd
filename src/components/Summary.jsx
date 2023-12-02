@@ -40,7 +40,6 @@ export function Summary() {
 
   return (
     <div>
-
       <section className="summary">
         <article className="summaryList">
         <h2>Resumen del Carrito</h2>
