@@ -28,4 +28,6 @@
 
 .alterList ul div li img {
   height: 150px;
+  width: 100px;
+  box-shadow:  3px 3px 10px black;
 }

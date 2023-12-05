@@ -1,10 +1,12 @@
 import "./AddBook.css"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from "axios";
 
 import { bookSchema } from '../schemas/books.js';
 import { Notification } from './Notification.jsx';
 
+import { getUserRole } from "../auth/auth.js";
+import { useNavigate } from 'react-router-dom';
 
 export function AddBook() {
   const [bookData, setBookData] = useState({
@@ -21,6 +23,21 @@ export function AddBook() {
 
   const [errorMessages, setErrorMessages] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Verificar el rol al cargar el componente
+    const userRole = getUserRole();
+
+    if (userRole !== 'admin') {
+      // Si el usuario no es un administrador, mostrar mensaje y redirigir a /books
+      setErrorMessages(['El usuario no cuenta con los permisos para ingresar a esta página.']);
+      setTimeout(() => {
+        navigate('/books');
+      }, 3000);
+    }
+  }, [navigate]);
+
 
   const closeNotification = () => {
     setErrorMessages([]);
@@ -87,20 +104,27 @@ export function AddBook() {
        type="error" 
        onClose={closeNotification} />}
 
-        <label htmlFor="">Titulo</label>
-        <input type="text" name="title" value={bookData.title} onChange={handleChange} />
-        <label htmlFor="">Año</label>
-        <input type="text" name="year" value={bookData.year} onChange={handleChange} />
-        <label htmlFor="">Autor</label>
-        <input type="text" name="author" value={bookData.author} onChange={handleChange} />
-        <label htmlFor="">Precio</label>
-        <input type="text" name="price" value={bookData.price} onChange={handleChange} />
-        <label htmlFor="">Imagen</label>
-        <input type="text" name="image" value={bookData.image} onChange={handleChange} />
-        <label htmlFor="">Calificación</label>
-        <input type="text" name="rate" value={bookData.rate} onChange={handleChange} />
-        <label htmlFor="">Género</label>
-        <input type="text" name="genre" value={bookData.genre.join(',')} onChange={handleChange} />
+      <label htmlFor="title">Titulo</label>
+      <input type="text" id="title" name="title" value={bookData.title} onChange={handleChange} />
+
+      <label htmlFor="year">Año</label>
+      <input type="text" id="year" name="year" value={bookData.year} onChange={handleChange} />
+
+      <label htmlFor="author">Autor</label>
+      <input type="text" id="author" name="author" value={bookData.author} onChange={handleChange} />
+
+      <label htmlFor="price">Precio</label>
+      <input type="text" id="price" name="price" value={bookData.price} onChange={handleChange} />
+
+      <label htmlFor="image">Imagen</label>
+      <input type="text" id="image" name="image" value={bookData.image} onChange={handleChange} />
+
+      <label htmlFor="rate">Calificación</label>
+      <input type="text" id="rate" name="rate" value={bookData.rate} onChange={handleChange} />
+
+      <label htmlFor="genre">Género</label>
+      <input type="text" id="genre" name="genre" value={bookData.genre.join(',')} onChange={handleChange} />
+
       </form>
       <button className="addBook" type="button" onClick={addBook}>Agregar Libro</button>
     </div>

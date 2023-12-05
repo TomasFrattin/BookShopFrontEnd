@@ -11,6 +11,10 @@ import { FiltersProvider } from './context/filters.jsx'
 import { AddBook } from "./components/AddBook.jsx"
 import { DeleteBook } from "./components/DeleteBook.jsx"
 import { AlterBook } from "./components/AlterBook.jsx"
+import { DeleteUser } from "./components/DeleteUser.jsx"; 
+
+import { Login } from "./components/Login.jsx"
+import { RegistroUsuario } from "./components/Register.jsx"
 
 export function App() {
 
@@ -20,9 +24,15 @@ export function App() {
             <CartProvider>
                 <FiltersProvider>
                     <Routes>
+                        {/* Rutas de Guest */}
+                        <Route path="/register" element={<RegistroUsuario />} />
+                        <Route path="/login" element={<Login />} /> 
+                        {/* Rutas de Admin */}
                         <Route path="/alterBook" element={<AlterBook />} />
                         <Route path="/deleteBook" element={<DeleteBook />} />
                         <Route path="/addBook" element={<AddBook />} />
+                        <Route path="/deleteUser" element={<DeleteUser />} />
+                        {/* Rutas de User */}
                         <Route path="/" element={<Home />} />
                         <Route path="/summary" element={<Summary />} />
                         <Route path="/books" element={
@@ -35,7 +45,7 @@ export function App() {
                     </Routes>
                 </FiltersProvider>
             </CartProvider>
-            <Footer />
+        <Footer />
         </div>
     );
 }
