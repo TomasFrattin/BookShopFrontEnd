@@ -12,17 +12,14 @@ const [users, setUsers] = useState([])
 const navigate = useNavigate()
 
   useEffect(() => {
-    // Verificar el rol al cargar el componente
     const userRole = getUserRole();
 
     if (userRole !== 'admin') {
-      // Si el usuario no es un administrador, mostrar mensaje y redirigir a /books
       setErrorMessages(['El usuario no cuenta con los permisos para ingresar a esta página.']);
       setTimeout(() => {
         navigate('/books');
       }, 3000);
     } else {
-      // Obtener la lista de libros si el usuario es un administrador
       axios.get('http://localhost:1234/users')
         .then(response => {
           setUsers(response.data);

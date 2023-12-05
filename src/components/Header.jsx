@@ -1,10 +1,9 @@
-// Header.jsx
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserRole, clearAuthData } from "../auth/auth";
 import { useState, useRef, useEffect } from "react";
 
-import customIcon from "../assets/account.svg"; // Reemplaza con la ruta correcta
+import customIcon from "../assets/account.svg";
 
 export function Header() {
   const userRole = getUserRole();
@@ -18,7 +17,6 @@ export function Header() {
     navigate("/register");
   };
 
-  // Cerrar el menú cuando se hace clic fuera de él
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (headerRef.current && !headerRef.current.contains(event.target)) {

@@ -1,4 +1,3 @@
-// AdminRouteGuard.jsx
 import { Route, Navigate } from 'react-router-dom';
 import { isAuthenticated, getUserRole } from '../auth/auth.js';
 

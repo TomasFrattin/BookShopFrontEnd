@@ -26,11 +26,9 @@ export function AddBook() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    // Verificar el rol al cargar el componente
     const userRole = getUserRole();
 
     if (userRole !== 'admin') {
-      // Si el usuario no es un administrador, mostrar mensaje y redirigir a /books
       setErrorMessages(['El usuario no cuenta con los permisos para ingresar a esta página.']);
       setTimeout(() => {
         navigate('/books');
@@ -51,7 +49,6 @@ export function AddBook() {
         setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
         console.log("El libro fue agregado exitosamente.")
       } catch (error) {
-        // En caso de error, actualiza el estado errorMessages
         setErrorMessages(['Error al agregar el libro. Por favor, inténtelo nuevamente.']);
         console.error('Error al agregar el libro:', error);
       }
@@ -62,7 +59,6 @@ export function AddBook() {
   const validateFormData = () => {
     try {
       bookSchema.parse(bookData);
-      //setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
       return true;
     } catch (error) {
       setErrorMessages([...error.errors.map((err) => err.message)]);

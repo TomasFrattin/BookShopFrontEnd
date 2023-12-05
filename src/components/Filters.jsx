@@ -5,8 +5,7 @@ import './Filters.css';
 export function Filters() {
     const { filters, setFilters } = useFilters();
     const minPriceFilterId = useId();
-    // const categoryFilterId = useId();
-
+    
     const handleChangeMinPrice = (event) => {
         const newMinPrice = parseFloat(event.target.value);
         setFilters((prevState) => ({
@@ -14,30 +13,7 @@ export function Filters() {
             minPrice: newMinPrice,
         }));
     };
-    
-   /*
-    const handleChangeCategory = (event) => {
-        console.log('Nueva categoría seleccionada:', event.target.value);
-        setFilters((prevState) => ({
-            ...prevState,
-            category: event.target.value,
-        }));
-    };
 
-
-
-                <div>
-                <label htmlFor={categoryFilterId}>Categoría</label>
-                <select className="plegable" id={categoryFilterId} onChange={handleChangeCategory} value={filters.category}>
-                    <option value="all">Todas</option>
-                    <option value="Mystery">Mystery</option>
-                    <option value="Horro">Horror</option>
-                </select>
-            </div>
-
-
-
-    */
     return (
         <section className="filters">
             <div>

@@ -16,6 +16,5 @@ export const isAuthenticated = () => {
 };
 
 export const getUserRole = () => {
-  // Devuelve 'guest' si no hay valor almacenado
   return localStorage.getItem('userRole') || 'guest';
 };

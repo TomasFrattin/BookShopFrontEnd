@@ -29,9 +29,8 @@ export function RegistroUsuario() {
       await axios.post('http://localhost:1234/users', usuario);
       setSuccessMessage({ type: "success", message: "El Usuario fue registrado exitosamente." });
 
-      // Actualizar el estado o realizar otras acciones después de un registro exitoso
       setUsuario({ nombre: '', password: '' });
-      setErrorMessages([]); // Limpiar el estado de error si estaba presente
+      setErrorMessages([]);
       setTimeout(() => {
         navigate('/login');
       }, 2000);

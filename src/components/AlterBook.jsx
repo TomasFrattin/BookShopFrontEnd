@@ -12,11 +12,9 @@ export function AlterBook() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificar el rol al cargar el componente
     const userRole = getUserRole();
 
     if (userRole !== 'admin') {
-      // Si el usuario no es un administrador, mostrar mensaje y redirigir a /books
       setErrorMessages(['El usuario no cuenta con los permisos para ingresar a esta página.']);
       setTimeout(() => {
         navigate('/books');
@@ -35,10 +33,8 @@ export function AlterBook() {
 
   const handleUpdatePrice = async (id, currentPrice) => {
     try {
-      // Realizar la petición de actualización al backend
       await axios.put(`http://localhost:1234/books/${id}`, { price: updatedPrice });
 
-      // Actualizar el estado local con el precio actualizado
       setBooks(prevBooks => {
         const updatedBooks = prevBooks.map(book => {
           if (book.id === id) {
