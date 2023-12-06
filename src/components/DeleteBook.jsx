@@ -50,7 +50,7 @@ export function DeleteBook () {
 
   return (
     <div className="deleteList">
-      <h1>Borrar Libros</h1>
+      <h2>Borrar Libros</h2>
       {errorMessages.length > 0 && (
         <Notification messages={errorMessages} 
         type="error" />

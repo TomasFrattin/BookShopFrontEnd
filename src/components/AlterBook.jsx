@@ -3,13 +3,20 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserRole } from '../auth/auth';
+
 import { Notification } from './Notification.jsx';
 
 export function AlterBook() {
   const [books, setBooks] = useState([]);
   const [errorMessages, setErrorMessages] = useState([]);
-  const [updatedPrice, setUpdatedPrice] = useState('');
+  const [updatedPrices, setUpdatedPrices] = useState({});
   const navigate = useNavigate();
+
+
+  const closeNotification = () => {
+    setErrorMessages([]);
+    //setSuccessMessage('');
+  };
 
   useEffect(() => {
     const userRole = getUserRole();
@@ -20,7 +27,6 @@ export function AlterBook() {
         navigate('/books');
       }, 3000);
     } else {
-      // Obtener la lista de libros si el usuario es un administrador
       axios.get('http://localhost:1234/books')
         .then(response => {
           setBooks(response.data);
@@ -29,21 +35,23 @@ export function AlterBook() {
           console.error('Error al obtener la lista de libros:', error);
         });
     }
-  }, []); // Asegúrate de pasar un array vacío para que el efecto se ejecute solo una vez
+  }, [navigate]);
 
-  const handleUpdatePrice = async (id, currentPrice) => {
+  const handleUpdatePrice = async (id) => {
     try {
-      await axios.put(`http://localhost:1234/books/${id}`, { price: updatedPrice });
+      const response = await axios.patch(`http://localhost:1234/books/${id}`, { input: { price: updatedPrices[id] } });
+      console.log('Respuesta del servidor:', response.data);
 
       setBooks(prevBooks => {
         const updatedBooks = prevBooks.map(book => {
           if (book.id === id) {
-            return { ...book, price: updatedPrice };
+            return { ...book, price: updatedPrices[id] };
           }
           return book;
         });
         return updatedBooks;
       });
+      setUpdatedPrices(prevPrices => ({ ...prevPrices, [id]: '' }));
     } catch (error) {
       console.error('Error al actualizar el precio del libro:', error);
       setErrorMessages(['Error al actualizar el precio del libro']);
@@ -52,9 +60,9 @@ export function AlterBook() {
 
   return (
     <div className="alterList">
-      <h1>Modificar Libros</h1>
+      <h2>Modificar Libros</h2>
       {errorMessages.length > 0 && (
-        <Notification messages={errorMessages} type="error" />
+        <Notification messages={errorMessages} type="error" onClose={closeNotification} />
       )}
       <ul>
         {books.map(book => (
@@ -66,10 +74,10 @@ export function AlterBook() {
               <input
                 type="text"
                 placeholder="Nuevo precio"
-                value={updatedPrice}
-                onChange={(e) => setUpdatedPrice(e.target.value)}
+                value={updatedPrices[book.id] || ''}
+                onChange={(e) => setUpdatedPrices(prevPrices => ({ ...prevPrices, [book.id]: e.target.value }))}
               />
-              <button onClick={() => handleUpdatePrice(book.id, book.price)}>
+              <button onClick={() => handleUpdatePrice(book.id)}>
                 Actualizar Precio
               </button>
             </li>

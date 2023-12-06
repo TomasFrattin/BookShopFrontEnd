@@ -47,10 +47,8 @@ export function AddBook() {
       try {
         await axios.post('http://localhost:1234/books', bookData);
         setSuccessMessage({ type: "success", message: "El Libro fue agregado exitosamente." });
-        console.log("El libro fue agregado exitosamente.")
       } catch (error) {
         setErrorMessages(['Error al agregar el libro. Por favor, inténtelo nuevamente.']);
-        console.error('Error al agregar el libro:', error);
       }
     }
   };
@@ -86,7 +84,7 @@ export function AddBook() {
 
   return (
     <div className="formContainer">
-      <h1>Agregar Libro</h1>
+      <h2>Agregar Libro</h2>
       <form className="addBookForm">
       
       {successMessage && successMessage.type === "success" && (
@@ -95,10 +93,11 @@ export function AddBook() {
         onClose={closeNotification} />
       )}
       
-      {errorMessages.length > 0 &&
+      {errorMessages.length > 0 && (
        <Notification messages={errorMessages} 
        type="error" 
-       onClose={closeNotification} />}
+       onClose={closeNotification} />
+       )}
 
       <label htmlFor="title">Titulo</label>
       <input type="text" id="title" name="title" value={bookData.title} onChange={handleChange} />

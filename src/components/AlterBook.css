@@ -2,7 +2,6 @@
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
@@ -20,6 +19,13 @@
   margin: 3px;
 }
 
+.alterList ul div li {
+  display: flex;
+  align-items: center;
+  margin: 3px;
+  gap: 5%;
+}
+
 .alterList ul div {
   background-color: #333333;
   padding: 2px;
@@ -30,4 +36,13 @@
   height: 150px;
   width: 100px;
   box-shadow:  3px 3px 10px black;
+}
+
+.alterList ul div li input {
+  font-size: 18px;
+  width: 105px;
+}
+
+.alterList ul div li button {
+  margin-right: 15px;
 }

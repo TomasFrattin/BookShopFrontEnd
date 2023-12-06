@@ -21,9 +21,9 @@ export function Login() {
       console.log('Credentials before request:', credentials);
   
       const response = await axios.post('http://localhost:1234/users/login', credentials);
-      console.log('Server Response:', response.data);
-  
-      setAuthData(response.data.token, response.data.role, response.data.nombre);
+
+      setAuthData(response.data.token, response.data.role, response.data.username);
+      console.log(localStorage.getItem('userName'))
       navigate('/books');
     } catch (error) {
       setError('Credenciales incorrectas. Verifica tus datos e intenta nuevamente.');

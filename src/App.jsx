@@ -16,6 +16,8 @@ import { DeleteUser } from "./components/DeleteUser.jsx";
 import { Login } from "./components/Login.jsx"
 import { RegistroUsuario } from "./components/Register.jsx"
 
+import { ChangePassword } from "./components/ChangePassword.jsx"
+
 export function App() {
 
     return (
@@ -35,6 +37,7 @@ export function App() {
                         {/* Rutas de User */}
                         <Route path="/" element={<Home />} />
                         <Route path="/summary" element={<Summary />} />
+                        <Route path="/changePassword" element={<ChangePassword />} />
                         <Route path="/books" element={
                             <div>
                                 <Filters />

@@ -49,7 +49,7 @@ const navigate = useNavigate()
 
   return (
     <div className="delete-users-list">
-      <h1>Borrar Usuarios</h1>
+      <h2>Borrar Usuarios</h2>
       {errorMessages.length > 0 && (
         <Notification messages={errorMessages} 
         type="error" />
