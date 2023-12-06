@@ -34,6 +34,19 @@ export function ChangePassword(){
   return (
     <div className="changePassword-box">
       <h2>Cambiar Contraseña</h2>
+
+      {successMessage && successMessage.type === "success" && (
+        <Notification message={successMessage.message} 
+        type="success" 
+        onClose={closeNotification} />
+      )}
+      
+      {errorMessages.length > 0 && (
+       <Notification messages={errorMessages} 
+       type="error" 
+       onClose={closeNotification} />
+       )}
+
       <label>
         <h3 className="title-changePassword-box">Contraseña Actual</h3>
         <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />

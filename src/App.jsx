@@ -22,20 +22,20 @@ export function App() {
 
     return (
         <div>
-            <Header />
             <CartProvider>
+            <Header />
                 <FiltersProvider>
                     <Routes>
                         {/* Rutas de Guest */}
                         <Route path="/register" element={<RegistroUsuario />} />
                         <Route path="/login" element={<Login />} /> 
+                        <Route path="/" element={<Home />} />
                         {/* Rutas de Admin */}
                         <Route path="/alterBook" element={<AlterBook />} />
                         <Route path="/deleteBook" element={<DeleteBook />} />
                         <Route path="/addBook" element={<AddBook />} />
                         <Route path="/deleteUser" element={<DeleteUser />} />
                         {/* Rutas de User */}
-                        <Route path="/" element={<Home />} />
                         <Route path="/summary" element={<Summary />} />
                         <Route path="/changePassword" element={<ChangePassword />} />
                         <Route path="/books" element={

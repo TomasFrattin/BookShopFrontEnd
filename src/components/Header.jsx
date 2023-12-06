@@ -4,17 +4,21 @@ import { getUserRole, clearAuthData } from "../auth/auth";
 import { useState, useRef, useEffect } from "react";
 
 import customIcon from "../assets/account.svg";
+import { useCart } from "../hooks/useCart.js";
 
 export function Header() {
   const userRole = getUserRole();
   const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
 
+  const { clearCart } = useCart();
+  
   const headerRef = useRef();
 
   const handleLogout = () => {
+    clearCart();
     clearAuthData();
-    navigate("/register");
+    navigate("/");
   };
 
   useEffect(() => {
