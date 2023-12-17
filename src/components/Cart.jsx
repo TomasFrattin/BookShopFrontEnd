@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useId } from 'react';
 import { CartIcon, ClearCartIcon } from './Icons.jsx';
 import { useCart } from '../hooks/useCart.js';
+import { useNavigate } from 'react-router-dom';
 
 export function CartItem({ product, onIncrease, onDecrease }) {
   const { image, price, title, quantity } = product;
@@ -25,13 +26,18 @@ export function CartItem({ product, onIncrease, onDecrease }) {
 }
 
 export function Cart() {
+  const navigate = useNavigate();
   const cartCheckboxId = useId();
   const [isCartVisible, setIsCartVisible] = useState(false);
   const { cart, clearCart, addToCart, takeAwayFromCart } = useCart();
 
   const handleToggleCart = () => {
+    if (window.innerWidth <= 450) {
+      navigate('/summary');
+    } else {
     setIsCartVisible(!isCartVisible);
-  };
+    }
+  }
 
   return (
     <>
