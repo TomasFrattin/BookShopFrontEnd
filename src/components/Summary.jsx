@@ -1,7 +1,10 @@
 import "./Summary.css";
 import { useCart } from "../hooks/useCart";
-
+import axios from "axios";
 import { useState } from 'react';
+
+import { Notification } from './Notification.jsx';
+
 
 export function Summary() {
   const [formData, setFormData] = useState({
@@ -14,6 +17,14 @@ export function Summary() {
     province: '',
   });
 
+  const [errorMessages, setErrorMessages] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const closeNotification = () => {
+    setErrorMessages([]);
+    setSuccessMessage('');
+  };
+  
   const { cart } = useCart();
 
   const handleChange = (e) => {
@@ -24,12 +35,34 @@ export function Summary() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const message = `Hola, mi nombre es ${formData.firstName} ${formData.lastName}. Mi dirección es ${formData.address} ${formData.streetNumber}, ${formData.city}, ${formData.province}. Quisiera encargar: ${cart.map(product => `
-    ${product.title} (${product.quantity})`).join(', ')}`;
+      ${product.title} (${product.quantity})`).join(', ')}`;
     const whatsappLink = `https://wa.me/${formData.phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappLink, '_blank');
+  
+    try {
+      // Realizar una solicitud al backend para actualizar la base de datos
+      await axios.post('http://localhost:1234/sales', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        address: formData.address,
+        streetNumber: formData.streetNumber,
+        city: formData.city,
+        province: formData.province,
+        // items: cart.map(product => ({
+        //   bookId: product.id,
+        //   quantity: product.quantity,
+        //   price: product.price,
+        // })),
+      });
+  
+      // Abrir el enlace de WhatsApp después de la actualización exitosa
+      window.open(whatsappLink, '_blank');
+    } catch (error) {
+      console.error('Error al actualizar la base de datos:', error);
+      // Manejar el error, mostrar mensaje al usuario, etc.
+    }
   };
 
 

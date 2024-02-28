@@ -25,16 +25,16 @@ export function AddBook() {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   
-  useEffect(() => {
-    const userRole = getUserRole();
+  // useEffect(() => {
+  //   const userRole = getUserRole();
 
-    if (userRole !== 'admin') {
-      setErrorMessages(['El usuario no cuenta con los permisos para ingresar a esta página.']);
-      setTimeout(() => {
-        navigate('/books');
-      }, 3000);
-    }
-  }, [navigate]);
+  //   if (userRole !== 'admin') {
+  //     setErrorMessages(['El usuario no cuenta con los permisos para ingresar a esta página.']);
+  //     setTimeout(() => {
+  //       navigate('/books');
+  //     }, 3000);
+  //   }
+  // }, [navigate]);
 
 
   const closeNotification = () => {
