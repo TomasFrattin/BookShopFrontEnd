@@ -1,5 +1,6 @@
 .footer {
     position: fixed;
+    font-size: 15px;
     left: 5px;
     bottom: 5px;
     text-align: middle;

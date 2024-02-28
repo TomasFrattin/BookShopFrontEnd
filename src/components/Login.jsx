@@ -3,10 +3,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { setAuthData } from '../auth/auth.js'
+import { Notification } from './Notification';
 
 export function Login() {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const [error, setError] = useState(null);
+  const [errorMessages, setErrorMessages] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -14,9 +17,16 @@ export function Login() {
     setCredentials((prevCredentials) => ({ ...prevCredentials, [name]: value }));
   };
 
+  const closeNotification = () => {
+    setErrorMessages([]);
+    setSuccessMessage('');
+  };
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     try {
       console.log('Credentials before request:', credentials);
   
@@ -26,8 +36,7 @@ export function Login() {
       console.log(localStorage.getItem('userName'))
       navigate('/books');
     } catch (error) {
-      setError('Credenciales incorrectas. Verifica tus datos e intenta nuevamente.');
-      console.error('Error al iniciar sesión:', error);
+      setErrorMessages(['Los datos ingresados no corresponden a un usuario creado. Intente nuevamente'])
     }
   };
   
@@ -46,7 +55,16 @@ export function Login() {
       </label>
       <button type="submit">Iniciar Sesión</button>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {successMessage && successMessage.type === "success" && (
+        <Notification message={successMessage.message} 
+        type="success" 
+        onClose={closeNotification} />
+      )}
+      
+      {errorMessages.length > 0 &&
+       <Notification messages={errorMessages} 
+       type="error" 
+       onClose={closeNotification} />}
     </form>
   );
 }
