@@ -90,7 +90,7 @@ export function Summary() {
       }, 2000);
     } catch (error) {
       setErrorMessages([
-        "Uno de los libros del carrito no cuenta con existencia.",
+        "Uno de los libros del carrito no cuenta con la existencia suficiente.",
       ]);
     }
   };
