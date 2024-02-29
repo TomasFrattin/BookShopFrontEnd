@@ -33,6 +33,12 @@ export const bookSchema = z.object({
     }).url({
       message: 'La imagen debe tener un URL válido.'
       }),
-  genre: z.array(z.enum(['History', 'Horror', 'Mystery', 'Psychology', 'Religion', 'Romance', 'Sci-Fi', 'Self Help']))
+  genre: z.array(z.enum(['History', 'Horror', 'Mystery', 'Psychology', 'Religion', 'Romance', 'Sci-Fi', 'Self Help'])),
+  stock: z.number({
+    required_error: 'Debe ingresar un stock.',
+    invalid_type_error: 'el stock debe ser un número.'
+  }).refine(value => value >= 0, {
+    message: 'Por favor, ingrese un número mayor a 0 en el stock.'
+  }),
 })
 

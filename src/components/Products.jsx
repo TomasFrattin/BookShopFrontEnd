@@ -53,6 +53,7 @@ export function Products() {
               <img src={product.image} alt={product.title} />
               <div>
                 <strong>{product.title}</strong> - ${product.price}
+                <p>Disponibilidad: {product.stock}</p>
               </div>
               <div className="buttondiv">
                 <button
