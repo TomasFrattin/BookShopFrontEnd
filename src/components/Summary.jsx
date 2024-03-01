@@ -45,26 +45,15 @@ export function Summary() {
         (product) => `
       ${product.title} (${product.quantity})`
       )
-      .join(", ")}`;
+      .join(", ")}. 
+      
+      El total del pedido es $${totalAmount}.`;
+
     const whatsappLink = `https://wa.me/${
       formData.phoneNumber
     }?text=${encodeURIComponent(message)}`;
 
     try {
-      console.log("Datos enviados al backend:", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        address: formData.address,
-        streetNumber: formData.streetNumber,
-        city: formData.city,
-        province: formData.province,
-        books: cart.map((product) => ({
-          bookId: product.id,
-          quantity: product.quantity,
-          price: product.price,
-        })),
-        totalAmount: totalAmount.toFixed(2),
-      });
       await axios.post("http://localhost:1234/sales", {
         firstName: formData.firstName,
         lastName: formData.lastName,

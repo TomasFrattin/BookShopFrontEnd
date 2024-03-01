@@ -34,7 +34,7 @@ export function Products() {
     return cart.some((item) => item.id === product.id);
   };
 
-  const productsPerPage = 10;
+  const productsPerPage = 4;
   
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;

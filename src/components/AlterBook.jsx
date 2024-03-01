@@ -33,7 +33,6 @@ export function AlterBook() {
       axios
         .get("http://localhost:1234/books")
         .then((response) => {
-          console.log("Respuesta del servidor:", response.data); // Agrega esta línea para ver la respuesta
           setBooks(response.data);
         })
         .catch((error) => {

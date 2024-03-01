@@ -1,4 +1,3 @@
-// auth.js
 export const setAuthData = (token, role, name) => {
   localStorage.setItem('token', token);
   localStorage.setItem('userRole', role);

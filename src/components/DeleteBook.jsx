@@ -32,29 +32,38 @@ export function DeleteBook () {
     }
   }, [navigate]);
 
-  const handleDeleteBook = (bookId) => {
+  const handleDeleteBook = async (bookId) => {
     const confirmDelete = window.confirm("¿Estás seguro de que quieres borrar este libro? El proceso es irreversible.");
+  
     if (confirmDelete) {
-      axios.delete(`http://localhost:1234/books/${bookId}`)
-        .then(() => {
-          setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId));
-          console.log('Libro borrado con éxito.');
-        })
-        .catch(error => {
-          console.error('Error al borrar el libro:', error);
-        });
+      try {
+        await axios.delete(`http://localhost:1234/books/${bookId}`);
+        setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId));
+        console.log('Libro borrado con éxito.');
+      } catch (error) {
+        setErrorMessages([
+          "Imposible eliminar el libro, tiene una venta ligada.",
+        ]);
+      }
     } else {
       console.log('Borrado cancelado.');
     }
+  };
+
+  const closeNotification = () => {
+    setErrorMessages([]);
   };
 
   return (
     <div className="deleteList">
       <h2>Borrar Libros</h2>
       {errorMessages.length > 0 && (
-        <Notification messages={errorMessages} 
-        type="error" />
-      )}
+              <Notification
+                messages={errorMessages}
+                type="error"
+                onClose={closeNotification}
+              />
+            )}
       <ul>
         {books.map(book => (
           <div key={book.id}>

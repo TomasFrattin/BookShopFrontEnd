@@ -26,9 +26,11 @@ export function RegistroUsuario() {
     e.preventDefault();
     console.log(usuario)
     try {
+      console.log('Objeto de usuario enviado al backend:', usuario);
       await axios.post('http://localhost:1234/users', {
         username: usuario.nombre,
         password: usuario.password
+        
       });
       setSuccessMessage({ type: "success", message: "El Usuario fue registrado exitosamente." });
 
