@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 import { getUserRole } from "../auth/auth.js"
-import { Notification } from "./Notification.jsx"
+import { Notification } from "../common/Notification.jsx"
 import { useNavigate} from "react-router-dom"
 
 export function DeleteUser() {

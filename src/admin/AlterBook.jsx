@@ -2,9 +2,9 @@ import "./AlterBook.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getUserRole } from "../auth/auth";
+import { getUserRole } from "../auth/auth.js";
 
-import { Notification } from "./Notification.jsx";
+import { Notification } from "../common/Notification.jsx";
 
 export function AlterBook() {
   const [books, setBooks] = useState([]);

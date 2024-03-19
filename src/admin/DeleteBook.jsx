@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { getUserRole } from "../auth/auth.js";
 import { useNavigate } from 'react-router-dom';
-import { Notification } from './Notification.jsx';
+import { Notification } from '../common/Notification.jsx';
 
 
 export function DeleteBook () {

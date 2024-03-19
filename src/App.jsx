@@ -1,22 +1,22 @@
-import { Header } from "./components/Header.jsx";
-import { Footer } from "./components/Footer";
-import { Cart } from "./components/Cart";
+import { Header } from "./common/Header.jsx";
+import { Footer } from "./common/Footer.jsx";
+import { Cart } from "./user/Cart.jsx";
 import { CartProvider } from "./context/cart";
-import { Filters } from "./components/Filters.jsx";
-import { Home } from "./components/Home.jsx";
+import { Filters } from "./user/Filters.jsx";
+import { Home } from "./common/Home.jsx";
 import { Route, Routes } from 'react-router-dom';
-import { Products } from "./components/Products.jsx";
-import { Summary } from "./components/Summary.jsx";
+import { Products } from "./user/Products.jsx";
+import { Summary } from "./user/Summary.jsx";
 import { FiltersProvider } from './context/filters.jsx'
-import { AddBook } from "./components/AddBook.jsx"
-import { DeleteBook } from "./components/DeleteBook.jsx"
-import { AlterBook } from "./components/AlterBook.jsx"
-import { DeleteUser } from "./components/DeleteUser.jsx"; 
+import { AddBook } from "./admin/AddBook.jsx"
+import { DeleteBook } from "./admin/DeleteBook.jsx"
+import { AlterBook } from "./admin/AlterBook.jsx"
+import { DeleteUser } from "./admin/DeleteUser.jsx"; 
 
-import { Login } from "./components/Login.jsx"
-import { RegistroUsuario } from "./components/Register.jsx"
+import { Login } from "./user/Login.jsx"
+import { RegistroUsuario } from "./user/Register.jsx"
 
-import { ChangePassword } from "./components/ChangePassword.jsx"
+import { ChangePassword } from "./user/ChangePassword.jsx"
 
 export function App() {
 

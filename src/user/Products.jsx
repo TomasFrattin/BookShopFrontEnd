@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Products.css';
-import { AddToCartIcon, RemoveFromCartIcon } from './Icons.jsx';
+import { AddToCartIcon, RemoveFromCartIcon } from '../../public/Icons.jsx';
 import { useCart } from '../hooks/useCart.js';
-import { useFilters } from '../hooks/useFilters';
+import { useFilters } from '../hooks/useFilters.js';
 
 
 

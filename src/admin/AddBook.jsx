@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { bookSchema } from "../schemas/books.js";
-import { Notification } from "./Notification.jsx";
+import { Notification } from "../common/Notification.jsx";
 
 import { getUserRole } from "../auth/auth.js";
 import { useNavigate } from "react-router-dom";

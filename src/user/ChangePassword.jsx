@@ -1,7 +1,7 @@
 import "./ChangePassword.css"
 import { useState } from 'react';
 import axios from "axios";
-import { Notification } from "./Notification.jsx"
+import { Notification } from "../common/Notification.jsx"
 
 import eyeClosed from "../assets/eyeClosed.svg"
 import eyeOpen from "../assets/eyeOpen.svg"

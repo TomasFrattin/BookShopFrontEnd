@@ -1,9 +1,9 @@
 import "./Summary.css";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../hooks/useCart.js";
 import axios from "axios";
 import { useState } from "react";
 
-import { Notification } from "./Notification.jsx";
+import { Notification } from "../common/Notification.jsx";
 
 export function Summary() {
   const [formData, setFormData] = useState({

@@ -2,7 +2,7 @@
 import './Cart.css';
 import { useState } from 'react';
 import { useId } from 'react';
-import { CartIcon, ClearCartIcon } from './Icons.jsx';
+import { CartIcon, ClearCartIcon } from '../../public/Icons.jsx';
 import { useCart } from '../hooks/useCart.js';
 import { useNavigate } from 'react-router-dom';
 
