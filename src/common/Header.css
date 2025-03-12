@@ -46,20 +46,17 @@ nav.stroke ul li a:hover:after {
   width: 100%;
 }
 
-/* Estilos para el menú responsive */
 .menu-icon {
   font-size: 2rem;
   cursor: pointer;
   user-select: none;
 }
 
-/* Ocultar el menú en móviles por defecto */
 nav {
   display: flex;
   justify-content: center;
 }
 
-/* Menú responsive */
 @media (max-width: 768px) {
   nav {
     display: none;
@@ -93,7 +90,6 @@ nav {
   }
 }
 
-/* Ocultar el ícono de hamburguesa en pantallas grandes */
 @media (min-width: 769px) {
   .menu-icon {
     display: none;

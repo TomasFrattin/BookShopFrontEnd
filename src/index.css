@@ -16,7 +16,7 @@
   color-scheme: light dark;
   color: rgb(255, 255, 255);
   background: url('/public/fondo.png') repeat;
-  background-size: auto; /* Mantiene el tamaño original de la imagen */
+  background-size: auto;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,7 +37,7 @@
 .container {
   /* margin: 0; Causa vibración en la pantalla*/
   display: flex;
-  place-items: flex-start; /* Cambia 'start' por 'flex-start' */
+  place-items: flex-start;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -60,10 +60,6 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-}
-
-button:hover {
-
 }
 
 button:focus,

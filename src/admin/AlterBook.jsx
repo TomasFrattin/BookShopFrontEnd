@@ -38,7 +38,7 @@ export function AlterBook() {
           console.error("Error al obtener la lista de libros:", error);
         });
     }
-  }, [navigate,setErrorMessages]);
+  }, [navigate, setErrorMessages]);
 
   const handleUpdatePrice = async (id) => {
     try {
@@ -110,7 +110,7 @@ export function AlterBook() {
           onClose={closeNotification}
         />
       )}
-    
+
       {errorMessages.length > 0 && (
         <Notification
           messages={errorMessages}
@@ -120,7 +120,10 @@ export function AlterBook() {
       )}
       <ul className="bg-custom2 list-none space-y-4 rounded-lg p-5 overflow-y-auto">
         {books.map((book) => (
-          <div key={book.id} className="bg-custom1 p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+          <div
+            key={book.id}
+            className="bg-custom1 p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+          >
             <li className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
               <div className="flex flex-col items-center w-40 space-y-3">
                 <p className="text-lg font-bold">{book.title}</p>

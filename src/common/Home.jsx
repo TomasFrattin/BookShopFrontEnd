@@ -6,8 +6,6 @@ export function Home() {
   return (
     <main className="flex items-center justify-center min-h-screen px-6 text-gray-100">
       <div className="opacity-90 bg-custom2 p-10 rounded-full max-w-6xl w-full grid md:grid-cols-2 gap-8 items-center">
-        
-        {/* Columna Izquierda - Imagen */}
         <div className="flex justify-center">
           <img
             src="https://img.freepik.com/vector-gratis/interior-biblioteca-sala-vacia-leer-libros-estantes-madera_33099-1722.jpg"
@@ -16,7 +14,6 @@ export function Home() {
           />
         </div>
 
-        {/* Columna Derecha - Texto e información */}
         <div className="text-center md:text-left">
           <h1 className="text-5xl font-bold mb-4">
             Bienvenido a{" "}
@@ -26,8 +23,11 @@ export function Home() {
           </h1>
 
           <p className="text-lg text-gray-300 mb-4">
-            Un libro no es solo papel y tinta, es una puerta a nuevos mundos, ideas y emociones. Leer estimula la mente, mejora la concentración y expande nuestro conocimiento. 
-            Ya sea que busques aventura, aprendizaje o simple desconexión, siempre hay un libro esperando por ti.
+            Un libro no es solo papel y tinta, es una puerta a nuevos mundos,
+            ideas y emociones. Leer estimula la mente, mejora la concentración y
+            expande nuestro conocimiento. Ya sea que busques aventura,
+            aprendizaje o simple desconexión, siempre hay un libro esperando por
+            ti.
           </p>
 
           <p className="text-gray-400 text-sm mb-6">
@@ -36,7 +36,6 @@ export function Home() {
             🌱 Apoya a librerías y editoriales independientes
           </p>
 
-          {/* Botones */}
           <div className="flex gap-4 justify-center md:justify-start">
             <button
               className="px-6 py-3 bg-blue-600 font-bold text-white rounded-lg text-lg hover:bg-blue-700 transition"
@@ -52,7 +51,6 @@ export function Home() {
             </button>
           </div>
         </div>
-
       </div>
     </main>
   );

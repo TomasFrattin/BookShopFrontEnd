@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserRole } from "../auth/auth.js";
+// import { getUserRole } from "../auth/auth.js";
 import { Notification } from "../common/Notification.jsx";
 import { api } from "../utils/axiosInstance.js";
 
@@ -86,28 +86,27 @@ export function DeleteBook() {
         />
       )}
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-  {books.map((book) => (
-    <div
-      key={book.id}
-      className="bg-custom1 shadow-md rounded-lg p-4 flex flex-col items-center min-h-[300px] justify-between"
-    >
-      <img
-        src={book.image}
-        alt={book.title}
-        className="w-32 h-48 object-cover rounded-md mb-3"
-      />
-      <span className="text-lg font-bold text-white">{book.title}</span>
-      <button
-        className="mt-3 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
-        onClick={() => handleDeleteBook(book.id)}
-      >
-        Eliminar
-      </button>
-    </div>
-  ))}
-</div>
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {books.map((book) => (
+          <div
+            key={book.id}
+            className="bg-custom1 shadow-md rounded-lg p-4 flex flex-col items-center min-h-[300px] justify-between"
+          >
+            <img
+              src={book.image}
+              alt={book.title}
+              className="w-32 h-48 object-cover rounded-md mb-3"
+            />
+            <span className="text-lg font-bold text-white">{book.title}</span>
+            <button
+              className="mt-3 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
+              onClick={() => handleDeleteBook(book.id)}
+            >
+              Eliminar
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

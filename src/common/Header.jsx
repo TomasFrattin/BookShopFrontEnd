@@ -12,7 +12,7 @@ export function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
-  const [isVisible, setIsVisible] = useState(false); // Estado para manejar la animación
+  const [isVisible, setIsVisible] = useState(false);
 
   const { clearCart } = useCart();
   const settingsRef = useRef(null);
@@ -28,8 +28,6 @@ export function Header() {
   useEffect(() => {
     setTimeout(() => setIsVisible(true), 0);
     const handleOutsideClick = (event) => {
-       // Activa la animación después de 100ms
-
       if (settingsRef.current && !settingsRef.current.contains(event.target)) {
         setShowSettings(false);
       }
@@ -50,15 +48,20 @@ export function Header() {
 
   return (
     <header
-    className={`min-h-16 rounded-b-[40px] bg-custom1 font-bold text-white px-6 py-2 flex items-center justify-between relative 
+      className={`min-h-16 rounded-b-[40px] bg-custom1 font-bold text-white px-6 py-2 flex items-center justify-between relative 
       transition-all duration-1000 ease-in-out 
-      ${isVisible ? "translate-y-0 shadow-spotlight" : "-translate-y-20 shadow-none"}`}
-      
+      ${
+        isVisible
+          ? "translate-y-0 shadow-spotlight"
+          : "-translate-y-20 shadow-none"
+      }`}
       ref={headerRef}
     >
-      {/* Icono de configuración */}
       {(userRol === "admin" || userRol === "user") && (
-        <div className="settings-container absolute left-4 top-1/2 -translate-y-1/2" ref={settingsRef}>
+        <div
+          className="settings-container absolute left-4 top-1/2 -translate-y-1/2"
+          ref={settingsRef}
+        >
           <span
             className="cursor-pointer w-12 h-12"
             onClick={() => setShowSettings(!showSettings)}
@@ -95,7 +98,6 @@ export function Header() {
         </div>
       )}
 
-      {/* Botón de menú hamburguesa */}
       <div
         className="absolute right-4 top-1/2 -translate-y-1/2 menu-icon md:hidden cursor-pointer"
         onClick={() => setShowMenu(!showMenu)}
@@ -103,7 +105,6 @@ export function Header() {
         ☰
       </div>
 
-      {/* Menú de navegación */}
       <nav className={`stroke ${showMenu ? "open" : ""}`} ref={menuRef}>
         <ul>
           {userRol !== "user" && userRol !== "admin" && (

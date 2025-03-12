@@ -24,39 +24,40 @@ export function AddBook() {
     setErrorMessages([]);
     setSuccessMessage("");
   };
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const userRol = getUserRole();
-  
+
     if (userRol !== "admin") {
       setErrorMessages([
         "El usuario no cuenta con los permisos para ingresar a esta página.",
       ]);
-  
+
       const timer = setTimeout(() => {
         navigate("/books");
       }, 2000);
-  
+
       return () => clearTimeout(timer);
     }
   }, [navigate, setErrorMessages]);
-  
-  
+
   const addBook = async () => {
     if (validateFormData()) {
       try {
-        console.log("Token en el frontend antes de la solicitud:", localStorage.getItem("token"));
-      
-  
+        console.log(
+          "Token en el frontend antes de la solicitud:",
+          localStorage.getItem("token")
+        );
+
         await api.post("http://localhost:1234/books", bookData);
-  
+
         setSuccessMessage({
           type: "success",
           message: "El Libro fue agregado exitosamente.",
         });
-  
+
         setBookData({
           title: "",
           year: "",
@@ -68,15 +69,16 @@ export function AddBook() {
           genre: "",
         });
       } catch (error) {
-        console.error("Error en addBook:", error.response?.data || error.message);
+        console.error(
+          "Error en addBook:",
+          error.response?.data || error.message
+        );
         setErrorMessages([
           "Error al agregar el libro. Por favor, inténtelo nuevamente.",
         ]);
       }
     }
   };
-  
-
 
   const validateFormData = () => {
     try {
@@ -91,11 +93,10 @@ export function AddBook() {
   function handleChange(e) {
     const { name, value } = e.target;
 
-    // Convertir a número los campos que deben ser números
     const newValue =
       name === "year" || name === "price" || name === "rate" || name === "stock"
-        ? Number(value) // Convierte el valor a número
-        : value; // Si no es un campo numérico, mantén el valor como está
+        ? Number(value)
+        : value;
 
     setBookData((prevData) => ({ ...prevData, [name]: newValue }));
     console.log(bookData.price, bookData.genre, bookData.title, bookData.rate);
@@ -133,7 +134,6 @@ export function AddBook() {
               value={bookData.year}
               onChange={handleChange}
             />
-            
           </div>
         </div>
 

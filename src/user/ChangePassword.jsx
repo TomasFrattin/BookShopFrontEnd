@@ -91,7 +91,6 @@ export function ChangePassword() {
         />
       )}
 
-      {/* Contraseña Actual */}
       <div className="bg-custom1 py-4 px-8 shadow-md rounded">
         <div className="w-full max-w-xs mb-4">
           <label className="block text-xs uppercase text-white font-bold mb-2">
@@ -113,7 +112,6 @@ export function ChangePassword() {
           </div>
         </div>
 
-        {/* Nueva Contraseña */}
         <div className="w-full max-w-xs mb-4">
           <label className="block text-xs uppercase text-white font-bold mb-2">
             Nueva Contraseña
@@ -134,7 +132,6 @@ export function ChangePassword() {
           </div>
         </div>
 
-        {/* Confirmar Nueva Contraseña */}
         <div className="w-full max-w-xs mb-4">
           <label className="block text-xs uppercase text-white font-bold mb-2">
             Confirmar Nueva Contraseña
@@ -155,7 +152,6 @@ export function ChangePassword() {
           </div>
         </div>
 
-        {/* Botón para cambiar la contraseña */}
         <div className="w-full max-w-xs">
           <button
             onClick={handleChangePassword}

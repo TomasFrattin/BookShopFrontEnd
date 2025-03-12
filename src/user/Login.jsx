@@ -34,9 +34,9 @@ export function Login() {
         password,
       });
 
-      console.log("Token recibido en el login:", response.data.token); // Verifica que el token esté presente
+      console.log("Token recibido en el login:", response.data.token); 
 
-      // Asegúrate de que el token esté en la respuesta
+
       if (response.data.token) {
         setAuthData(
           response.data.token,
@@ -44,17 +44,15 @@ export function Login() {
           response.data.username
         );
 
-        // Luego obtenemos los datos del localStorage
         const usern = getUserUsername();
         const rol = getUserRole();
-        console.log(usern, rol); // Ahora debería mostrar los valores correctos
-
+        console.log(usern, rol);
         console.log(
           "Token guardado en localStorage:",
           localStorage.getItem("token")
-        ); // Verifica que el token esté en localStorage
+        );
 
-        navigate("/books"); // Redirigir a la página de libros
+        navigate("/books");
       }
     } catch (error) {
       setErrorMessages([

@@ -11,7 +11,7 @@ export default {
         custom2: "#1a1a1a",
       },
       boxShadow:{
-        'spotlight': '0 0 150px 80px rgba(255, 255, 255, 0.3)', // Sombra más difusa y extensa
+        'spotlight': '0 0 150px 80px rgba(255, 255, 255, 0.3)',
       }
     },
   },
