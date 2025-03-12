@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { setAuthData } from "../auth/auth.js";
 import { Notification } from "../common/Notification.jsx";
 
+import { getUserUsername, getUserRole } from "../auth/auth.js";
+
 export function Login() {
   const navigate = useNavigate();
 
@@ -16,11 +18,10 @@ export function Login() {
   };
 
   const [password, setPassword] = useState("");
-  
+
   const handleChange = (e) => {
     setPassword(e.target.value);
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,89 +34,108 @@ export function Login() {
         password,
       });
 
-      setAuthData(
-        response.data.token,
-        response.data.role,
-        response.data.username
-      );
+      console.log("Token recibido en el login:", response.data.token); // Verifica que el token esté presente
 
-      navigate("/books");
+      // Asegúrate de que el token esté en la respuesta
+      if (response.data.token) {
+        setAuthData(
+          response.data.token,
+          response.data.rol,
+          response.data.username
+        );
+
+        // Luego obtenemos los datos del localStorage
+        const usern = getUserUsername();
+        const rol = getUserRole();
+        console.log(usern, rol); // Ahora debería mostrar los valores correctos
+
+        console.log(
+          "Token guardado en localStorage:",
+          localStorage.getItem("token")
+        ); // Verifica que el token esté en localStorage
+
+        navigate("/books"); // Redirigir a la página de libros
+      }
     } catch (error) {
       setErrorMessages([
-        "Los datos ingresados no corresponden a un usuario creado. Intente nuevamente",
+        "Los datos ingresados no corresponden a un usuario creado.",
       ]);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1>Iniciar Sesión</h1>
-      <div className="w-full max-w-xs">
-        <form
-          className="bg-custom1 h-[300px] shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={handleSubmit}
-        >
-          <div className="mb-4">
-            <label className="block text-xs uppercase text-white font-bold mb-2">
-              Usuario
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-200 text-black leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500"
-              name="username"
-              type="text"
-              placeholder="JaneDoe"
-            />
-          </div>
-          <div className="h-24 mb-6">
-            <label className="block text-xs uppercase text-white font-bold mb-2">
-              Contraseña
-            </label>
-            <input
-        className={`shadow appearance-none border border-${password ? 'gray' : 'red'}-500 rounded w-full py-3 px-3 bg-gray-200 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500`}
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={handleChange}
-      />
-      {password === "" && (
-        <p className="text-red-500 text-xs font-bold italic">
-          Por favor, escriba su contraseña.
-        </p>
-      )}
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="shadow-md bg-custom2 hover:bg-gray-700 transition duration-500 ease-in-out text-white font-bold py-2 
-              px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Ingresar
-            </button>
-            <a
-              className="inline-block align-baseline font-bold text-sm text-white hover:scale-105 transition duration-300 ease-in-out"
-              onClick={() => navigate('/register')}
-            >
-              ¿No tienes cuenta?
-            </a>
-          </div>
-        </form>
-      </div>
-      {successMessage && successMessage.type === "success" && (
-        <Notification
-          message={successMessage.message}
-          type="success"
-          onClose={closeNotification}
-        />
-      )}
+    <main className="flex items-center justify-center min-h-screen px-6 text-gray-100">
+      <div className="opacity-90 bg-custom2 p-10 rounded-xl max-w-xl w-full  items-center">
+        <div className="text-center md:text-left">
+          <h1 className="text-4xl font-bold mb-4 text-white">Iniciar Sesión</h1>
+          <form
+            className="bg-custom1 shadow-md rounded px-8 py-6 mb-4"
+            onSubmit={handleSubmit}
+          >
+            <div className="mb-4">
+              <label className="block text-xs uppercase text-white font-bold mb-2">
+                Usuario
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-200 text-black leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500"
+                name="username"
+                type="text"
+                placeholder="JaneDoe"
+              />
+            </div>
+            <div className="h-24 mb-6">
+              <label className="block text-xs uppercase text-white font-bold mb-2">
+                Contraseña
+              </label>
+              <input
+                className={`shadow appearance-none border border-${
+                  password ? "gray" : "red"
+                }-500 rounded w-full py-3 px-3 bg-gray-200 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500`}
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={handleChange}
+              />
+              {password === "" && (
+                <p className="text-red-500 text-xs font-bold italic">
+                  Por favor, escriba su contraseña.
+                </p>
+              )}
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                className="shadow-md bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+                type="submit"
+              >
+                Ingresar
+              </button>
+              <a
+                className="inline-block align-baseline font-bold text-sm text-white hover:scale-105 transition duration-300 ease-in-out"
+                onClick={() => navigate("/register")}
+              >
+                ¿No tienes cuenta?
+              </a>
+            </div>
+          </form>
 
-      {errorMessages.length > 0 && (
-        <Notification
-          messages={errorMessages}
-          type="error"
-          onClose={closeNotification}
-        />
-      )}
-    </div>
+          {successMessage && successMessage.type === "success" && (
+            <Notification
+              message={successMessage.message}
+              type="success"
+              onClose={closeNotification}
+            />
+          )}
+
+          {errorMessages.length > 0 && (
+            <Notification
+              messages={errorMessages}
+              type="error"
+              onClose={closeNotification}
+            />
+          )}
+        </div>
+      </div>
+    </main>
   );
 }

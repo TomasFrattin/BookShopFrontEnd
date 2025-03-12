@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Products.css';
-import { AddToCartIcon, RemoveFromCartIcon } from '../../public/Icons.jsx';
-import { useCart } from '../hooks/useCart.js';
-import { useFilters } from '../hooks/useFilters.js';
-
-
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { AddToCartIcon, RemoveFromCartIcon } from "../Icons.jsx";
+import { useCart } from "../hooks/useCart.js";
+import { useFilters } from "../hooks/useFilters.js";
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -15,18 +12,19 @@ export function Products() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:1234/books')
-      .then(function (response) {
+      .get("http://localhost:1234/books")
+      .then((response) => {
         const filteredProducts = response.data.filter((product) => {
           return (
             product.price >= filters.minPrice &&
-            (filters.category === 'all' || product.category === filters.category)
+            (filters.category === "all" ||
+              product.category === filters.category)
           );
         });
         setProducts(filteredProducts);
       })
-      .catch(function (error) {
-        console.error('Error al obtener productos:', error);
+      .catch((error) => {
+        console.error("Error al obtener productos:", error);
       });
   }, [filters]);
 
@@ -34,32 +32,65 @@ export function Products() {
     return cart.some((item) => item.id === product.id);
   };
 
-  const productsPerPage = 4;
-  
+  const productsPerPage = 8;
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <main className="products">
-      <ul>
+    <main className="w-full flex flex-col items-center min-h-screen">
+      <ul className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4 w-full p-4">
         {currentProducts.map((product) => {
           const isProductInCart = checkProductInCart(product);
 
           return (
-            <li key={product.id}>
-              <img src={product.image} alt={product.title} />
-              <div>
-                <strong>{product.title}</strong> - ${product.price}
-                <p>Disponibilidad: {product.stock}</p>
+            <li
+              key={product.id}
+              className="flex flex-col justify-between gap-4 shadow-lg rounded-md bg-custom2 text-white p-4"
+            >
+              <img
+                src={product.image}
+                alt={product.title}
+                className="rounded-md w-full aspect-square object-cover bg-white transition-transform duration-300 hover:scale-105"
+              />
+
+              <div className="flex flex-col justify-between h-full">
+                <div className="flex justify-between items-center">
+                  <strong className="text-lg">{product.title}</strong>
+                  <span className="text-lg font-semibold">
+                    ${product.price}
+                  </span>
+                </div>
+
+                <div className="mt-2 mx-4 text-sm text-gray-300 flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-yellow-400 mr-1">{product.rate}</span>
+                    <span className="text-yellow-400">⭐</span>
+                  </div>
+
+                  <span className="italic">{product.genre}</span>
+                </div>
+
+                <p className="text-gray-400 text-xs mt-2">
+                  Disponibilidad: {product.stock}
+                </p>
               </div>
-              <div className="buttondiv">
+
+              <div className="flex justify-center mt-4">
                 <button
-                  style={{ backgroundColor: isProductInCart ? '#a72323' : '#238da7' }}
+                  className={`px-6 py-3 rounded-md transition-colors ${
+                    isProductInCart ? "bg-red-700" : "bg-blue-600"
+                  }`}
                   onClick={() => {
-                    isProductInCart ? removeFromCart(product) : addToCart(product);
+                    isProductInCart
+                      ? removeFromCart(product)
+                      : addToCart(product);
                   }}
                 >
                   {isProductInCart ? <RemoveFromCartIcon /> : <AddToCartIcon />}
@@ -70,14 +101,24 @@ export function Products() {
         })}
       </ul>
 
-      <div className="pagination">
-        {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, index) => (
-          <button key={index + 1} 
-          onClick={() => paginate(index + 1)}
-          className={currentPage === index + 1 ? 'selected' : ''}>
-            {index + 1}
-          </button>
-        ))}
+      <div className="mt-auto sticky bottom-0 w-full p-4 text-center shadow-md">
+        {Array.from(
+          { length: Math.ceil(products.length / productsPerPage) },
+          (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => paginate(index + 1)}
+              className={`mx-1 px-3 py-1 rounded font-bold transition-colors 
+    ${
+      currentPage === index + 1
+        ? "bg-blue-600 text-white border-2 border-blue-800 shadow-lg"
+        : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+    }`}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
       </div>
     </main>
   );

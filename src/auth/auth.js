@@ -1,13 +1,14 @@
-export const setAuthData = (token, role, name) => {
+export const setAuthData = (token, rol, name) => {
   localStorage.setItem('token', token);
-  localStorage.setItem('userRole', role);
-  localStorage.setItem('userName', name)
+  localStorage.setItem('userRol', rol);
+  localStorage.setItem('userName', name);
 };
 
 export const clearAuthData = () => {
   localStorage.removeItem('token');
-  localStorage.setItem('userRole', "guest");
-  localStorage.removeItem('userName')
+  localStorage.setItem('userRol', "guest");
+//  localStorage.removeItem('useRol');
+  localStorage.removeItem('userName');
 };
 
 export const isAuthenticated = () => {
@@ -15,5 +16,9 @@ export const isAuthenticated = () => {
 };
 
 export const getUserRole = () => {
-  return localStorage.getItem('userRole') || 'guest';
+  return localStorage.getItem('userRol') || 'guest';
 };
+
+export const getUserUsername = () => {
+  return localStorage.getItem('userName') || 'no sabemos'
+}

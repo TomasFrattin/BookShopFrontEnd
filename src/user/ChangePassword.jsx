@@ -1,18 +1,17 @@
-import "./ChangePassword.css"
-import { useState } from 'react';
+import { useState } from "react";
 import axios from "axios";
-import { Notification } from "../common/Notification.jsx"
+import { Notification } from "../common/Notification.jsx";
 
-import eyeClosed from "../assets/eyeClosed.svg"
-import eyeOpen from "../assets/eyeOpen.svg"
+import eyeClosed from "../assets/eyeClosed.svg";
+import eyeOpen from "../assets/eyeOpen.svg";
 
-export function ChangePassword(){
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+export function ChangePassword() {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [errorMessages, setErrorMessages] = useState([]);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -20,117 +19,152 @@ export function ChangePassword(){
 
   const closeNotification = () => {
     setErrorMessages([]);
-    setSuccessMessage('');
+    setSuccessMessage("");
   };
 
   const toggleShowPassword = (field) => {
     switch (field) {
-      case 'current':
+      case "current":
         setShowCurrentPassword(!showCurrentPassword);
         break;
-      case 'new':
+      case "new":
         setShowNewPassword(!showNewPassword);
         break;
-      case 'confirm':
+      case "confirm":
         setShowConfirmPassword(!showConfirmPassword);
         break;
       default:
         break;
     }
   };
-  
+
   const handleChangePassword = async () => {
-    const username = localStorage.getItem('userName');
+    const username = localStorage.getItem("userName");
 
     if (newPassword !== confirmPassword) {
-      setErrorMessages(['La nueva contraseña y la de confirmación no coinciden.']);
+      setErrorMessages([
+        "La nueva contraseña y la de confirmación no coinciden.",
+      ]);
       return;
     }
 
     try {
-      await axios.patch('http://localhost:1234/users/change-password', {
+      await axios.patch("http://localhost:1234/users/change-password", {
         username,
         currentPassword,
         newPassword,
       });
-      setSuccessMessage({ type: "success", message: "La contraseña fue cambiada exitosamente." });
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
+      setSuccessMessage({
+        type: "success",
+        message: "La contraseña fue cambiada exitosamente.",
+      });
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
       setShowCurrentPassword(false);
       setShowNewPassword(false);
       setShowConfirmPassword(false);
-
     } catch (error) {
-      setErrorMessages(['Error al cambiar la contraseña. Por favor, inténtelo nuevamente.']);
+      setErrorMessages([
+        "Error al cambiar la contraseña. Por favor, inténtelo nuevamente.",
+      ]);
     }
   };
 
   return (
-    <div className="changePassword-box">
-      <h2>Cambiar Contraseña</h2>
+    <div className="flex flex-col justify-center items-center">
+      <h2 className="text-2xl font-bold m-4">Cambiar Contraseña</h2>
 
       {successMessage && successMessage.type === "success" && (
-        <Notification message={successMessage.message} 
-        type="success" 
-        onClose={closeNotification} />
+        <Notification
+          message={successMessage.message}
+          type="success"
+          onClose={closeNotification}
+        />
       )}
-      
-      {errorMessages.length > 0 && (
-       <Notification messages={errorMessages} 
-       type="error" 
-       onClose={closeNotification} />
-       )}
 
-      <label>
-        <h3 className="title-changePassword-box">Contraseña Actual</h3>
-        <div className="password-input-container">
-          <input
-            type={showCurrentPassword ? 'text' : 'password'}
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-          />
-          <img 
-            src={showCurrentPassword ? eyeOpen : eyeClosed}
-            alt={showCurrentPassword ? 'Ocultar' : 'Mostrar'}
-            className="eye-icon"
-            onClick={() => toggleShowPassword('current')}
-          />
+      {errorMessages.length > 0 && (
+        <Notification
+          messages={errorMessages}
+          type="error"
+          onClose={closeNotification}
+        />
+      )}
+
+      {/* Contraseña Actual */}
+      <div className="bg-custom1 py-4 px-8 shadow-md rounded">
+        <div className="w-full max-w-xs mb-4">
+          <label className="block text-xs uppercase text-white font-bold mb-2">
+            Contraseña Actual
+          </label>
+          <div className="relative">
+            <input
+              type={showCurrentPassword ? "text" : "password"}
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-200 text-black leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500"
+            />
+            <img
+              src={showCurrentPassword ? eyeOpen : eyeClosed}
+              alt={showCurrentPassword ? "Ocultar" : "Mostrar"}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer invert"
+              onClick={() => toggleShowPassword("current")}
+            />
+          </div>
         </div>
-      </label>
-      <label>
-        <h3 className="title-changePassword-box">Nueva Contraseña</h3>
-        <div className="password-input-container">
-          <input
-            type={showNewPassword ? 'text' : 'password'}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <img 
-            src={showNewPassword ? eyeOpen : eyeClosed}
-            alt={showNewPassword ? 'Ocultar' : 'Mostrar'}
-            className="eye-icon"
-            onClick={() => toggleShowPassword('new')}
-          />
+
+        {/* Nueva Contraseña */}
+        <div className="w-full max-w-xs mb-4">
+          <label className="block text-xs uppercase text-white font-bold mb-2">
+            Nueva Contraseña
+          </label>
+          <div className="relative">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-200 text-black leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500"
+            />
+            <img
+              src={showNewPassword ? eyeOpen : eyeClosed}
+              alt={showNewPassword ? "Ocultar" : "Mostrar"}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer invert"
+              onClick={() => toggleShowPassword("new")}
+            />
+          </div>
         </div>
-      </label>
-      <label>
-        <h3 className="title-changePassword-box">Confirmar Nueva Contraseña</h3>
-        <div className="password-input-container">
-          <input
-            type={showConfirmPassword ? 'text' : 'password'}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <img 
-            src={showConfirmPassword ? eyeOpen : eyeClosed}
-            alt={showConfirmPassword ? 'Ocultar' : 'Mostrar'}
-            className="eye-icon"
-            onClick={() => toggleShowPassword('confirm')}
-          />
+
+        {/* Confirmar Nueva Contraseña */}
+        <div className="w-full max-w-xs mb-4">
+          <label className="block text-xs uppercase text-white font-bold mb-2">
+            Confirmar Nueva Contraseña
+          </label>
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-200 text-black leading-tight focus:outline-none focus:shadow-outline focus:bg-white focus:border-gray-500"
+            />
+            <img
+              src={showConfirmPassword ? eyeOpen : eyeClosed}
+              alt={showConfirmPassword ? "Ocultar" : "Mostrar"}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer invert"
+              onClick={() => toggleShowPassword("confirm")}
+            />
+          </div>
         </div>
-      </label>
-      <button onClick={handleChangePassword}>Cambiar Contraseña</button>
+
+        {/* Botón para cambiar la contraseña */}
+        <div className="w-full max-w-xs">
+          <button
+            onClick={handleChangePassword}
+            className="shadow-md bg-custom2 hover:bg-gray-700 transition duration-500 ease-in-out text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+          >
+            Cambiar Contraseña
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

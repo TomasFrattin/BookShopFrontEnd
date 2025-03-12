@@ -18,12 +18,20 @@ import { RegistroUsuario } from "./user/Register.jsx"
 
 import { ChangePassword } from "./user/ChangePassword.jsx"
 
+import { useLocation } from "react-router-dom";
+
+
 export function App() {
+    const location = useLocation();
+    const hideHeaderOnRoutes = ["/", "/login", "/register"]; // Rutas donde NO quieres mostrar el header
+    const shouldHideHeader = hideHeaderOnRoutes.includes(location.pathname);
+
 
     return (
-        <div>
+        <div className ="font-sans">
             <CartProvider>
-            <Header />
+
+            {!shouldHideHeader && <Header />} {/* Ocultar header si estamos en Home */}
                 <FiltersProvider>
                     <Routes>
                         {/* Rutas de Guest */}

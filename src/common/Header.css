@@ -1,0 +1,101 @@
+nav {
+  width: 100%;
+}
+nav ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 10px;
+}
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all 0.5s;
+}
+nav ul li a:hover {
+  color: #ffffff;
+}
+
+/* stroke */
+nav.stroke ul li a {
+  position: relative;
+}
+nav.stroke ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ".";
+  color: transparent;
+  background: #aaa;
+  height: 1px;
+}
+nav.stroke ul li a:hover:after {
+  width: 100%;
+}
+
+/* Estilos para el menú responsive */
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Ocultar el menú en móviles por defecto */
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+/* Menú responsive */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #383838;
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  nav.open {
+    display: block;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  nav ul li {
+    display: block;
+    padding: 10px 0;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+/* Ocultar el ícono de hamburguesa en pantallas grandes */
+@media (min-width: 769px) {
+  .menu-icon {
+    display: none;
+  }
+}

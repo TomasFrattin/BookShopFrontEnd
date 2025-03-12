@@ -1,20 +1,13 @@
-import "./Summary.css";
 import { useCart } from "../hooks/useCart.js";
 import axios from "axios";
 import { useState } from "react";
 
 import { Notification } from "../common/Notification.jsx";
 
+import { getUserUsername } from "../auth/auth.js";
+
 export function Summary() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "3464499396",
-    address: "",
-    streetNumber: "",
-    city: "",
-    province: "",
-  });
+  const username = getUserUsername();
 
   const [errorMessages, setErrorMessages] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
@@ -26,47 +19,28 @@ export function Summary() {
 
   const { cart } = useCart();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const message = `Hola, mi nombre es ${formData.firstName} ${
-      formData.lastName
-    }. Mi dirección es ${formData.address} ${formData.streetNumber}, ${
-      formData.city
-    }, ${formData.province}. Quisiera encargar: ${cart
-      .map(
-        (product) => `
-      ${product.title} (${product.quantity})`
-      )
+    const message = `Hola, mi nombre es ${username}. Quisiera encargar: ${cart
+      .map((product) => `${product.title} (${product.quantity})`)
       .join(", ")}. 
-      
-      El total del pedido es $${totalAmount}.`;
+  
+    El total del pedido es $${totalAmount}.`;
 
-    const whatsappLink = `https://wa.me/${
-      formData.phoneNumber
-    }?text=${encodeURIComponent(message)}`;
+    const whatsappLink = `https://wa.me/${3417181961}?text=${encodeURIComponent(
+      message
+    )}`;
 
     try {
       await axios.post("http://localhost:1234/sales", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        address: formData.address,
-        streetNumber: formData.streetNumber,
-        city: formData.city,
-        province: formData.province,
+        username,
 
         books: cart.map((product) => ({
           bookId: product.id,
           quantity: product.quantity,
           price: product.price,
         })),
+
         totalAmount: totalAmount.toFixed(2),
       });
       setSuccessMessage({
@@ -91,97 +65,63 @@ export function Summary() {
 
   return (
     <div>
-      <section className="summary">
-        <article className="summaryList">
-          <h2>Resumen del Carrito</h2>
-          <ul>
+      <section className="flex justify-center">
+        <article className="w-full max-w-sm">
+          <h1 className="text-2xl font-semibold text-white">
+            Resumen del Carrito
+          </h1>
+          <ul className="bg-custom2 list-none space-y-4 rounded-lg p-5 overflow-y-auto max-h-[500px]">
             {cart.map((product) => (
-              <div key={product.id}>
-                <li key={product.id}>
-                  <img src={product.image} alt={product.title} />
-                  <span>{product.title}</span> -{" "}
-                  <span>
-                    Cantidad: {product.quantity} <br /> Parcial: ${" "}
-                    {(product.quantity * product.price).toFixed(2)}
-                  </span>
+              <div
+                key={product.id}
+                className="bg-custom1 p-4  rounded-lg shadow-sm hover:bg-gray-600 transition-colors duration-300"
+              >
+                <li className="flex items-center gap-8 justify-start">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="h-32 w-24 rounded-lg object-cover shadow-md"
+                  />
+                  <div className="flex flex-col justify-center text-left">
+                    <span className="font-semibold text-white">
+                      {product.title}
+                    </span>
+                    <span className="text-md text-gray-400">
+                      Cantidad: {product.quantity} <br />
+                      Parcial: ${(product.quantity * product.price).toFixed(2)}
+                    </span>
+                  </div>
                 </li>
               </div>
             ))}
           </ul>
-          <h2 className="total">Total a Pagar: ${totalAmount.toFixed(2)}</h2>
-        </article>
 
-        <article>
-          <h2>Completa tus Datos y Confirma tu Compra</h2>
-          <form className="summaryData" onSubmit={handleSubmit}>
-            {successMessage && successMessage.type === "success" && (
-              <Notification
-                message={successMessage.message}
-                type="success"
-                onClose={closeNotification}
-              />
-            )}
+          <h2 className="mt-6 text-2xl font-bold text-white bg-custom2 p-4 rounded-md">
+            Total a Pagar: ${totalAmount.toFixed(2)}
+          </h2>
 
-            {errorMessages.length > 0 && (
-              <Notification
-                messages={errorMessages}
-                type="error"
-                onClose={closeNotification}
-              />
-            )}
+          <button
+            className="my-6 bg-blue-600 font-bold text-white rounded-lg text-lg hover:bg-blue-700 transition"
+            onClick={handleSubmit}
+          >
+            Enviar Pedido por WhatsApp
+          </button>
 
-            <input
-              type="text"
-              name="firstName"
-              placeholder="Nombre"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
+          {successMessage && successMessage.type === "success" && (
+            <Notification
+              message={successMessage.message}
+              type="success"
+              onClose={closeNotification}
             />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Apellido"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
+          )}
+
+          {errorMessages.length > 0 && (
+            <Notification
+              messages={errorMessages}
+              type="error"
+              onClose={closeNotification}
             />
-            <input
-              type="text"
-              name="address"
-              placeholder="Dirección"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="streetNumber"
-              placeholder="Altura"
-              value={formData.streetNumber}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="city"
-              placeholder="Localidad"
-              value={formData.city}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="province"
-              placeholder="Provincia"
-              value={formData.province}
-              onChange={handleChange}
-              required
-            />
-            <button className="sendOrderButton" type="submit">
-              Enviar Pedido por WhatsApp
-            </button>
-          </form>
+          )}
         </article>
       </section>
     </div>
