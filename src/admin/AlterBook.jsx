@@ -30,7 +30,7 @@ export function AlterBook() {
       }, 2000);
     } else {
       api
-        .get("http://localhost:1234/books")
+        .get("/books")
         .then((response) => {
           setBooks(response.data);
         })
@@ -43,7 +43,7 @@ export function AlterBook() {
   const handleUpdatePrice = async (id) => {
     try {
       const response = await api.patch(
-        `http://localhost:1234/books/${id}/updatePrice`,
+        `/books/${id}/updatePrice`,
         {
           input: { price: updatedPrices[id] },
         }
@@ -73,7 +73,7 @@ export function AlterBook() {
   const handleUpdateStock = async (id) => {
     try {
       const response = await api.patch(
-        `http://localhost:1234/books/${id}/updateStock`,
+        `/books/${id}/updateStock`,
         {
           input: { stock: updatedStocks[id] },
         }

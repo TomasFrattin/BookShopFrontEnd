@@ -2,8 +2,9 @@ import axios from "axios";
 
 // Creamos una instancia de axios para hacer las solicitudes
 export const api = axios.create({
-  baseURL: "http://localhost:1234",
+  baseURL: import.meta.env.VITE_BASE_URL,  // URL pública de tu backend
 });
+
 
 // Interceptor para agregar el token a las cabeceras antes de cada solicitud
 api.interceptors.request.use(

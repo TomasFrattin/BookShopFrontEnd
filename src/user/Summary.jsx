@@ -1,10 +1,8 @@
 import { useCart } from "../hooks/useCart.js";
-import axios from "axios";
 import { useState } from "react";
-
 import { Notification } from "../common/Notification.jsx";
-
 import { getUserUsername } from "../auth/auth.js";
+import { api } from "../utils/axiosInstance";
 
 export function Summary() {
   const username = getUserUsername();
@@ -32,7 +30,7 @@ export function Summary() {
     )}`;
 
     try {
-      await axios.post("http://localhost:1234/sales", {
+      await api.post("/sales", {
         username,
 
         books: cart.map((product) => ({

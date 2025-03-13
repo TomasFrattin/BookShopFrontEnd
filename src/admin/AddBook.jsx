@@ -51,7 +51,7 @@ export function AddBook() {
           localStorage.getItem("token")
         );
 
-        await api.post("http://localhost:1234/books", bookData);
+        await api.post("/books", bookData);
 
         setSuccessMessage({
           type: "success",

@@ -28,7 +28,7 @@ export function DeleteUser() {
       }, 3000);
     } else {
       api
-        .get("http://localhost:1234/users")
+        .get("/users")
         .then((response) => {
           setUsers(response.data);
         })
@@ -50,7 +50,7 @@ export function DeleteUser() {
           localStorage.getItem("token")
         );
 
-        await api.delete(`http://localhost:1234/users/${userUsername}`);
+        await api.delete(`/users/${userUsername}`);
 
         setUsers((prevUsers) =>
           prevUsers.filter((user) => user.username !== userUsername)

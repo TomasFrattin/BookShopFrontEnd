@@ -28,7 +28,7 @@ export function DeleteBook() {
     //   }, 3000);
     // } else {
     api
-      .get("http://localhost:1234/books")
+      .get("/books")
       .then((response) => {
         setBooks(response.data);
       })
@@ -49,7 +49,7 @@ export function DeleteBook() {
           "Token antes de eliminar un libro:",
           localStorage.getItem("token")
         );
-        await api.delete(`http://localhost:1234/books/${bookId}`);
+        await api.delete(`/books/${bookId}`);
 
         setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
         setSuccessMessage({

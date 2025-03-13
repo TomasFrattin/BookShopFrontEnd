@@ -1,8 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { Notification } from "../common/Notification";
 import { useNavigate } from "react-router-dom";
 import { userSchema } from "../schemas/user.js";
+import { api } from "../utils/axiosInstance";
 
 export function RegistroUsuario() {
   const [user, setUser] = useState({
@@ -37,7 +37,7 @@ export function RegistroUsuario() {
       const validatedUser = userSchema.parse(user);
 
       console.log("Objeto de user enviado al backend:", validatedUser);
-      await axios.post("http://localhost:1234/users", validatedUser);
+      await api.post("/users", validatedUser);
       setSuccessMessage({
         type: "success",
         message: "El Usuario fue registrado exitosamente.",

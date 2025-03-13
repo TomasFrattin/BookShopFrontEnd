@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
 import { AddToCartIcon, RemoveFromCartIcon } from "../Icons.jsx";
 import { useCart } from "../hooks/useCart.js";
 import { useFilters } from "../hooks/useFilters.js";
+import { api } from "../utils/axiosInstance";
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -11,8 +12,8 @@ export function Products() {
   const { filters } = useFilters();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:1234/books")
+    api
+      .get("/books")
       .then((response) => {
         const filteredProducts = response.data.filter((product) => {
           return (

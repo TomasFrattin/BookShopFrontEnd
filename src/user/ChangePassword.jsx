@@ -49,7 +49,7 @@ export function ChangePassword() {
     }
 
     try {
-      await axios.patch("http://localhost:1234/users/change-password", {
+      await axios.patch("/users/change-password", {
         username,
         currentPassword,
         newPassword,

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setAuthData } from "../auth/auth.js";
 import { Notification } from "../common/Notification.jsx";
+import { api } from "../utils/axiosInstance";
 
 import { getUserUsername, getUserRole } from "../auth/auth.js";
 
@@ -29,7 +29,7 @@ export function Login() {
     const password = e.target.elements.password.value;
 
     try {
-      const response = await axios.post("http://localhost:1234/users/login", {
+      const response = await api.post("/users/login", {
         username,
         password,
       });
