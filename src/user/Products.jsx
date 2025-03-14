@@ -45,8 +45,8 @@ export function Products() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <main className="w-full flex flex-col items-center min-h-screen">
-      <ul className="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4 w-full p-4">
+    <main className="relative w-full flex flex-col items-center min-h-screen">
+      <ul className="mb-14 grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-4 w-full p-4">
         {currentProducts.map((product) => {
           const isProductInCart = checkProductInCart(product);
 
@@ -102,25 +102,26 @@ export function Products() {
         })}
       </ul>
 
-      <div className="mt-auto sticky bottom-0 w-full p-4 text-center shadow-md">
-        {Array.from(
-          { length: Math.ceil(products.length / productsPerPage) },
-          (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => paginate(index + 1)}
-              className={`mx-1 px-3 py-1 rounded font-bold transition-colors 
+      <div className="absolute bottom-0 w-full p-4 text-center shadow-md">
+    {Array.from(
+      { length: Math.ceil(products.length / productsPerPage) },
+      (_, index) => (
+        <button
+          key={index + 1}
+          onClick={() => paginate(index + 1)}
+          className={`mx-1 px-3 py-1 rounded font-bold transition-colors 
     ${
       currentPage === index + 1
         ? "bg-blue-600 text-white border-2 border-blue-800 shadow-lg"
         : "bg-gray-300 text-gray-700 hover:bg-gray-400"
     }`}
-            >
-              {index + 1}
-            </button>
-          )
-        )}
-      </div>
+        >
+          {index + 1}
+        </button>
+      )
+    )}
+  </div>
+
     </main>
   );
 }

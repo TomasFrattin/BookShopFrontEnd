@@ -55,7 +55,7 @@ export function App() {
                     </Routes>
                 </FiltersProvider>
             </CartProvider>
-        <Footer />
+        {/* <Footer /> */}
         </div>
     );
 }
