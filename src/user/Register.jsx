@@ -62,7 +62,7 @@ export function RegistroUsuario() {
       <div className="text-center md:text-left opacity-90 bg-custom2 p-6 sm:p-10 rounded-2xl max-w-md sm:max-w-2xl w-full">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Registrar Usuario</h1>
         <form className="bg-custom1 shadow-md rounded px-6 sm:px-8 py-6 mb-4 w-full" onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="h-24 mb-2">
             <label className="block text-xs uppercase text-white font-bold mb-2">Nombre de Usuario</label>
             <input
               className={`appearance-none border ${user.username ? "border-gray-500" : "border-red-500"} block w-full bg-gray-200 text-black rounded py-2 sm:py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
@@ -72,7 +72,7 @@ export function RegistroUsuario() {
               value={user.username}
               onChange={handleChange}
             />
-            {user.username === "" && <p className="text-red-500 text-xs font-bold italic mt-1 lg:mt-3">Escriba un nombre de usuario.</p>}
+            {user.username === "" && <p className="text-red-500 text-xs font-bold italic mt-1 lg:mt-2">Escriba un nombre de usuario.</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -100,7 +100,7 @@ export function RegistroUsuario() {
             </div>
           </div>
 
-          <div className="mb-4">
+          <div className="h-24 mb-2">
             <label className="block text-xs uppercase text-white font-bold mb-2">Contraseña</label>
             <input
               className={`appearance-none block w-full bg-gray-200 text-black border ${user.password ? "border-gray-500" : "border-red-500"} rounded py-2 sm:py-3 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
@@ -110,7 +110,7 @@ export function RegistroUsuario() {
               value={user.password}
               onChange={handleChange}
             />
-            <p className="text-red-500 text-xs font-bold italic mt-1 lg:mt-3">Escriba una contraseña que crea conveniente.</p>
+            {user.password === "" && <p className="text-red-500 text-xs font-bold italic mt-1 lg:mt-2">Escriba una contraseña que crea conveniente.</p>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">

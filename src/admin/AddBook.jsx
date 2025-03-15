@@ -92,15 +92,19 @@ export function AddBook() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-
-    const newValue =
-      name === "year" || name === "price" || name === "rate" || name === "stock"
-        ? Number(value)
-        : value;
-
+  
+    let newValue = value;
+  
+    // Si el campo es un número (year, price, stock, rate), convertir a número
+    if (name === "year" || name === "price" || name === "stock" || name === "rate") {
+      newValue = value ? parseFloat(value) : ""; // Convertir a número o a vacío
+    }
+  
     setBookData((prevData) => ({ ...prevData, [name]: newValue }));
     console.log(bookData.price, bookData.genre, bookData.title, bookData.rate);
   }
+  
+  
 
   return (
     <div className="mb-10 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
@@ -116,7 +120,7 @@ export function AddBook() {
               className="w-full bg-gray-200 text-black border border-gray-300 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
               name="title"
-              placeholder="Moby Dick"
+              placeholder="Moby B. Dick"
               value={bookData.title || ""}
               onChange={handleChange}
             />
@@ -127,7 +131,7 @@ export function AddBook() {
             </label>
             <input
               className="w-full bg-gray-200 text-black border border-gray-300 rounded py-3 px-4 focus:outline-none focus:bg-white focus:border-gray-500"
-              type="text"
+              type="number"
               name="year"
               placeholder="2019"
               value={bookData.year}
@@ -164,7 +168,7 @@ export function AddBook() {
             />
           </div>
         </div>
-
+#quericalapasta
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-4 md:mb-0">
             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
@@ -194,20 +198,20 @@ export function AddBook() {
               Calificación
             </label>
             <select
-              className="w-full bg-gray-200 border border-gray-300 text-black py-3 px-4 rounded focus:outline-none focus:bg-white focus:border-gray-500"
-              name="rate"
-              value={bookData.rate || ""}
-              onChange={handleChange}
-            >
-              <option value="" disabled hidden className="text-red-700">
-                Seleccione una
-              </option>
-              {[1, 2, 3, 4, 5].map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+  className="w-full bg-gray-200 border border-gray-300 text-black py-3 px-4 rounded focus:outline-none focus:bg-white focus:border-gray-500"
+  name="rate"
+  value={bookData.rate || ""} // Asegúrate de que el valor sea numérico o vacío
+  onChange={handleChange}
+>
+  <option value="" disabled hidden>
+    Seleccione una
+  </option>
+  {[1, 2, 3, 4, 5].map((num) => (
+    <option key={num} value={num}>
+      {num}
+    </option>
+  ))}
+</select>
           </div>
           <div className="w-full md:w-1/4 px-3">
             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">

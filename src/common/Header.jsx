@@ -59,7 +59,7 @@ export function Header() {
     >
       {(userRol === "admin" || userRol === "user") && (
         <div
-          className="settings-container absolute left-4 top-1/2 -translate-y-1/2"
+          className="settings-container absolute left-4 top-1/2 -translate-y-1/2 z-50"
           ref={settingsRef}
         >
           <span
@@ -73,7 +73,7 @@ export function Header() {
             />
           </span>
           {showSettings && (userRol === "admin" || userRol === "user") && (
-            <div className="absolute w-32 -left-9 bg-custom1 rounded overflow-hidden z-10">
+            <div className="absolute w-32 -left-9 bg-custom1 rounded overflow-hidden z-50">
               <ul className="text-sm uppercase flex flex-col justify-center items-center gap-2 py-1">
                 <li className="w-full py-2 text-center transition duration-300 hover:bg-gray-700">
                   <Link

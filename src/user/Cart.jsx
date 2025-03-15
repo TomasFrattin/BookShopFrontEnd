@@ -43,6 +43,9 @@ export function Cart() {
 
   const handleToggleCart = () => setIsCartVisible(!isCartVisible);
 
+  // Calculamos la cantidad total de productos en el carrito
+  const totalItemsInCart = cart.reduce((total, product) => total + product.quantity, 0);
+
   return (
     <>
       <label
@@ -50,6 +53,13 @@ export function Cart() {
         onClick={handleToggleCart}
       >
         <CartIcon />
+
+        {/* Mostrar el círculo rojo solo si hay productos en el carrito */}
+        {totalItemsInCart > 0 && (
+          <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
+            {totalItemsInCart}
+          </span>
+        )}
       </label>
 
       {isCartVisible && (
