@@ -44,7 +44,10 @@ export function Cart() {
   const handleToggleCart = () => setIsCartVisible(!isCartVisible);
 
   // Calculamos la cantidad total de productos en el carrito
-  const totalItemsInCart = cart.reduce((total, product) => total + product.quantity, 0);
+  const totalItemsInCart = cart.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
 
   return (
     <>
@@ -81,17 +84,24 @@ export function Cart() {
               </button>
             </div>
 
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {cart.map((product) => (
-                <CartItem
-                  key={product.id}
-                  product={product}
-                  onIncrease={() => addToCart(product)}
-                  onDecrease={() => takeAwayFromCart(product)}
-                />
-              ))}
-            </ul>
-
+            {cart.length === 0 ? (
+              <div className="flex justify-center items-center h-40">
+                <p className="text-2xl font-semibold text-white text-center">
+                  El carrito está vacío
+                </p>
+              </div>
+            ) : (
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {cart.map((product) => (
+                  <CartItem
+                    key={product.id}
+                    product={product}
+                    onIncrease={() => addToCart(product)}
+                    onDecrease={() => takeAwayFromCart(product)}
+                  />
+                ))}
+              </ul>
+            )}
             <div className="mt-6 flex gap-4">
               <button
                 onClick={() => {
