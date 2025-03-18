@@ -168,7 +168,6 @@ export function AddBook() {
             />
           </div>
         </div>
-#quericalapasta
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-4 md:mb-0">
             <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">

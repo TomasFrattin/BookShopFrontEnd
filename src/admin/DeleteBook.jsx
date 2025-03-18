@@ -42,29 +42,47 @@ export function DeleteBook() {
     const confirmDelete = window.confirm(
       "¿Estás seguro de que quieres borrar este libro? El proceso es irreversible."
     );
-
+  
     if (confirmDelete) {
       try {
         console.log(
           "Token antes de eliminar un libro:",
           localStorage.getItem("token")
         );
+  
         await api.delete(`/books/${bookId}`);
-
+  
         setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
         setSuccessMessage({
           type: "success",
           message: "El Libro fue eliminado exitosamente.",
         });
       } catch (error) {
-        setErrorMessages([
-          "No posee los permisos necesarios para borrar un libro.",
-        ]);
+        if (error.response) {
+          if (error.response.status === 403) {
+            setErrorMessages([
+              "No posee los permisos necesarios para borrar este libro.",
+            ]);
+          } else if (error.response.status === 409) {
+            setErrorMessages([
+              "No se puede borrar este libro porque tiene ventas asociadas en la base de datos.",
+            ]);
+          } else {
+            setErrorMessages([
+              "Ocurrió un error al intentar eliminar el libro. Por favor, inténtelo de nuevo más tarde.",
+            ]);
+          }
+        } else {
+          setErrorMessages([
+            "No se pudo conectar con el servidor. Verifique su conexión a internet.",
+          ]);
+        }
       }
     } else {
       console.log("Borrado cancelado.");
     }
   };
+  
 
   return (
     <div className="max-w-4xl mx-auto">
