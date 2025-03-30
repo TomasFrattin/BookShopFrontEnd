@@ -51,5 +51,5 @@ npm run dev
 ```
 **Nota:** Para correr la aplicación completa, asegúrate de correr previamente el backend, para lo cual puedes guiarte con el instructivo ubicado en el READ.ME del siguiente repositorio `https://github.com/TomasFrattin/BookShopBackEnd`, de modo tal que tanto back como front estén corriendo al mismo tiempo. Si no, la aplicación no funcionará.
 
-### Acerca de las Pruebas Unitarias
+## Pruebas Unitarias
 Las pruebas unitarias no fueron añadidas al repositorio, en su lugar se ha adjuntado el código pertinente con las imágenes en una documentación extra. Visita el siguiente enlace: [Documentación](https://docs.google.com/document/d/1ZLjh9Kx2-bB-oLU7uYlUz92_gIZkQiwpbj2OxiIJ_hI/edit?usp=sharing)
