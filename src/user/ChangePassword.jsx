@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { Notification } from "../common/Notification.jsx";
+import { api } from "../utils/axiosInstance";
 
 import eyeClosed from "../assets/eyeClosed.svg";
 import eyeOpen from "../assets/eyeOpen.svg";
@@ -49,7 +49,7 @@ export function ChangePassword() {
     }
 
     try {
-      await axios.patch("/users/change-password", {
+      await api.patch("/users/change-password", {
         username,
         currentPassword,
         newPassword,

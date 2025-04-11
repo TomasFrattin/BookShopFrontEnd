@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserRole } from "../auth/auth.js";
 import { Notification } from "../common/Notification.jsx";
 import { api } from "../utils/axiosInstance.js";
+import { getUserUsername } from "../auth/auth.js";
 
 export function DeleteUser() {
   const [users, setUsers] = useState([]);
@@ -18,6 +19,7 @@ export function DeleteUser() {
 
   useEffect(() => {
     const userRol = getUserRole();
+    const loggedUsername = getUserUsername();
 
     if (userRol !== "admin") {
       setErrorMessages([
@@ -30,7 +32,8 @@ export function DeleteUser() {
       api
         .get("/users")
         .then((response) => {
-          setUsers(response.data);
+          const allUsers = response.data;
+          setUsers(allUsers);
         })
         .catch((error) => {
           console.error("Error al obtener la lista de usuarios:", error);
@@ -107,12 +110,18 @@ export function DeleteUser() {
                 <td className="py-3 px-4 text-left">{user.username}</td>
                 <td className="py-3 px-4 text-left">{user.rol}</td>
                 <td className="py-3 px-4 text-center">
-                  <button
-                    className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
-                    onClick={() => handleDeleteUser(user.username)}
-                  >
-                    Eliminar
-                  </button>
+                  {user.username === getUserUsername() ? (
+                    <span className="inline-block px-4 py-2 bg-green-600 text-white font-semibold rounded-lg opacity-70 cursor-not-allowed">
+                      Logueado
+                    </span>
+                  ) : (
+                    <button
+                      className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
+                      onClick={() => handleDeleteUser(user.username)}
+                    >
+                      Eliminar
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

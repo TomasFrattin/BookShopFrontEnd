@@ -14,7 +14,7 @@ export function CartItem({ product, onIncrease, onDecrease }) {
         alt={title}
         className="w-full max-w-[100px] aspect-[3/4] object-cover rounded-md shadow-2xl"
       />
-      <div className="font-bold text-center text-sm">
+      <div className="font-bold text-center text-md">
         {title} - ${price}
       </div>
       <footer className="flex items-center justify-center gap-2">
@@ -24,7 +24,7 @@ export function CartItem({ product, onIncrease, onDecrease }) {
         >
           -
         </button>
-        <small className="">Cantidad:{quantity}</small>
+        <p className="">Cantidad: {quantity}</p>
         <button
           onClick={onIncrease}
           className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
@@ -43,7 +43,6 @@ export function Cart() {
 
   const handleToggleCart = () => setIsCartVisible(!isCartVisible);
 
-  // Calculamos la cantidad total de productos en el carrito
   const totalItemsInCart = cart.reduce(
     (total, product) => total + product.quantity,
     0
@@ -57,9 +56,8 @@ export function Cart() {
       >
         <CartIcon />
 
-        {/* Mostrar el círculo rojo solo si hay productos en el carrito */}
         {totalItemsInCart > 0 && (
-          <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
+          <span className="absolute top-0 right-0 w-7 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
             {totalItemsInCart}
           </span>
         )}
